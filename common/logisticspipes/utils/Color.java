@@ -32,9 +32,13 @@ public enum Color {
 	TEXT_DISABLED(0xffA0A0A0),
 	BACKGROUND_LIGHT(0xffc6c6c6),
 	BACKGROUND_DARK(0xff8b8b8b),
+	/** Light red */
 	FUZZY_ORE_DICT_COLOR(0xFFFF4040),
+	/** Light green */
 	FUZZY_IGNORE_DAMAGE_COLOR(0xFF40FF40),
+	/** Bright blue */
 	FUZZY_IGNORE_NBT_COLOR(0xFF4040FF),
+	/** Muddy Green */
 	FUZZY_ORE_CATEGORY_COLOR(0xFF7F7F40),
 	;
 
