@@ -37,28 +37,29 @@
 
 package network.rs485.logisticspipes.integration
 
+import network.rs485.minecraft.BlockPosSelector
+import network.rs485.minecraft.WorldBuilder
+import network.rs485.minecraft.minus
 import logisticspipes.LogisticsPipes
+import net.minecraftforge.common.ForgeChunkManager
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.ChunkPos
 import net.minecraft.util.math.Vec3i
 import net.minecraft.world.WorldServer
-import net.minecraftforge.common.ForgeChunkManager
-import network.rs485.minecraft.BlockPosSelector
-import network.rs485.minecraft.WorldBuilder
-import network.rs485.minecraft.minus
 import kotlin.math.min
 
 const val LEVEL = 100
 val ONE_VECTOR = Vec3i(1, 1, 1)
 
-class TestWorldBuilder(override val world: WorldServer) : WorldBuilder {
+class TestWorldBuilder(override val world: WorldServer, val firstBlockPos: BlockPos) : WorldBuilder {
 
     private val selectors = ArrayList<Pair<BlockPosSelector, BlockPos>>()
 
     // TODO: grouping and expanding groups in z needs collecting all selectors/builds before configuration
-    private var nextPos = BlockPos(0, LEVEL, 0)
+    private var nextPos = firstBlockPos
     private var lowest = LEVEL
 
     private val tickets: HashSet<ForgeChunkManager.Ticket> = HashSet()
@@ -82,6 +83,7 @@ class TestWorldBuilder(override val world: WorldServer) : WorldBuilder {
         lowest = min(lowest, borderStart.y)
         nextPos = BlockPos(borderEnd.x + 2, LEVEL, 0)
         world.setBlocksToAir(start = borderStart, end = borderEnd)
+        world.removeItemsOnGround(start = borderStart, end = borderEnd)
         world.setBlocks(
             start = BlockPos(borderStart.x, lowest, borderStart.z),
             end = BlockPos(borderStart.x, lowest, borderEnd.z),
@@ -113,6 +115,16 @@ class TestWorldBuilder(override val world: WorldServer) : WorldBuilder {
         if (chunksToLoad.add(pos)) ForgeChunkManager.forceChunk(tickets.first(), pos)
     }
 
+    fun buildSpawnPlatform(): BlockPos {
+        val start = firstBlockPos.subtract(ONE_VECTOR)
+        world.setBlocks(
+            start = BlockPos(start.x - 5, start.y, start.z),
+            end = BlockPos(start.x - 1, start.y, start.z + 4),
+            state = Blocks.OBSIDIAN.defaultState,
+        )
+        return BlockPos(start.x - 3, firstBlockPos.y, start.z + 2)
+    }
+
 }
 
 private fun WorldServer.setBlocks(start: BlockPos, end: BlockPos, state: IBlockState) =
@@ -120,6 +132,12 @@ private fun WorldServer.setBlocks(start: BlockPos, end: BlockPos, state: IBlockS
 
 private fun WorldServer.setBlocksToAir(start: BlockPos, end: BlockPos) =
     blocksIn(start, end).forEach(::setBlockToAir)
+
+private fun WorldServer.removeItemsOnGround(start: BlockPos, end: BlockPos) =
+    blocksIn(start, end).map { getChunkFromBlockCoords(it) }.distinct()
+        .forEach { chunk ->
+            chunk.entityLists.flatMap { it.getByClass(EntityItem::class.java) }.forEach { removeEntity(it) }
+        }
 
 private fun blocksIn(start: BlockPos, end: BlockPos): List<BlockPos> {
     assert(start.x <= end.x)

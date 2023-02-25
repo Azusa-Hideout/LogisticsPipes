@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -35,28 +35,27 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.inventory
+package network.rs485.logisticspipes.integration
 
-import network.rs485.logisticspipes.property.BitSetProperty
-import network.rs485.logisticspipes.property.IBitSet
+import logisticspipes.LPBlocks
+import logisticspipes.LPItems
+import logisticspipes.pipes.basic.LogisticsBlockGenericPipe
+import logisticspipes.pipes.unrouted.PipeItemsBasicTransport
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.WorldServer
+import network.rs485.minecraft.Configurator
+import network.rs485.minecraft.Placer
+import network.rs485.minecraft.configurator
+import kotlin.test.assertTrue
 
-class FuzzySlotAccess(
-    private val slotAccess: SlotAccess, private val fuzzyFlags: BitSetProperty
-) : SlotAccess {
+object UnroutedPipePlacer : Placer {
 
-    private fun bitsForSlot(idx: Int): IBitSet =
-        (idx * 4).let { fuzzyFlags.get(it, it + 3) }
-
-    override fun mergeSlots(intoSlot: Int, fromSlot: Int) {
-        slotAccess.mergeSlots(intoSlot, fromSlot)
-        bitsForSlot(intoSlot).replaceWith(bitsForSlot(fromSlot))
-        bitsForSlot(fromSlot).clear()
+    override suspend fun place(world: WorldServer, pos: BlockPos): Configurator {
+        val unroutedPipe = PipeItemsBasicTransport(LPItems.pipeUnrouted)
+        assertTrue(message = "Expected unrouted pipe to be placed at $pos (${world})") {
+            LogisticsBlockGenericPipe.placePipe(unroutedPipe, world, pos, LPBlocks.pipe)
+        }
+        return configurator { unroutedPipe.updateEntity() }
     }
-
-    override fun canMerge(intoSlot: Int, fromSlot: Int): Boolean =
-        slotAccess.canMerge(intoSlot, fromSlot)
-                && (isSlotEmpty(intoSlot) || bitsForSlot(intoSlot) == bitsForSlot(fromSlot))
-
-    override fun isSlotEmpty(idx: Int): Boolean = slotAccess.isSlotEmpty(idx)
 
 }

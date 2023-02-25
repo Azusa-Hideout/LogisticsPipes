@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -35,28 +35,7 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.inventory
+package network.rs485.util
 
-import network.rs485.logisticspipes.property.BitSetProperty
-import network.rs485.logisticspipes.property.IBitSet
-
-class FuzzySlotAccess(
-    private val slotAccess: SlotAccess, private val fuzzyFlags: BitSetProperty
-) : SlotAccess {
-
-    private fun bitsForSlot(idx: Int): IBitSet =
-        (idx * 4).let { fuzzyFlags.get(it, it + 3) }
-
-    override fun mergeSlots(intoSlot: Int, fromSlot: Int) {
-        slotAccess.mergeSlots(intoSlot, fromSlot)
-        bitsForSlot(intoSlot).replaceWith(bitsForSlot(fromSlot))
-        bitsForSlot(fromSlot).clear()
-    }
-
-    override fun canMerge(intoSlot: Int, fromSlot: Int): Boolean =
-        slotAccess.canMerge(intoSlot, fromSlot)
-                && (isSlotEmpty(intoSlot) || bitsForSlot(intoSlot) == bitsForSlot(fromSlot))
-
-    override fun isSlotEmpty(idx: Int): Boolean = slotAccess.isSlotEmpty(idx)
-
-}
+fun checkBooleanProperty(name: String) =
+    System.getProperty(name).let { it != null && it.equals("true", true) }

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
 
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
@@ -53,18 +52,6 @@ public class PipeItemsSupplierLogistics extends CoreRoutedPipe implements IReque
 	@Override
 	public ItemSendMode getItemSendMode() {
 		return ItemSendMode.Normal;
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-		supplierModule.readFromNBT(nbttagcompound);
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		supplierModule.writeToNBT(nbttagcompound);
 	}
 
 	@Override

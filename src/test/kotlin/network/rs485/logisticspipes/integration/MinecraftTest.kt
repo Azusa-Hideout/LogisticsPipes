@@ -37,17 +37,21 @@
 
 package network.rs485.logisticspipes.integration
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.time.withTimeout
+import network.rs485.grow.Coroutines
+import network.rs485.minecraft.BlockPosSelector
+import network.rs485.minecraft.TestState
+import network.rs485.util.checkBooleanProperty
 import logisticspipes.LogisticsPipes
-import net.minecraft.server.dedicated.DedicatedServer
-import net.minecraft.world.WorldServer
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent
-import network.rs485.grow.Coroutines
+import net.minecraft.server.dedicated.DedicatedServer
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.WorldServer
 import java.lang.management.ManagementFactory
 import java.time.Duration
 import kotlin.test.assertTrue
+import kotlinx.coroutines.*
+import kotlinx.coroutines.time.withTimeout
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object MinecraftTest {
@@ -55,8 +59,10 @@ object MinecraftTest {
     /**
      * If not debugging, the server watch dog is not disabled and the server is shut down after running the tests.
      */
-    private const val DEBUGGING = false
+    private val isDebugging = checkBooleanProperty("logisticspipes.test.debug")
+
     private lateinit var world: WorldServer
+    private lateinit var firstBlockPos: BlockPos
     private lateinit var testBlockBuilder: TestWorldBuilder
 
     const val TIMEOUT_MODIFIER: Long = 1L
@@ -64,52 +70,102 @@ object MinecraftTest {
     fun serverStart(event: FMLServerStartedEvent) {
         assertTrue(message = "Test suite must run on the server") { event.side.isServer }
         val serverInstance = FMLCommonHandler.instance().minecraftServerInstance as DedicatedServer
-        if (DEBUGGING) {
+        world = serverInstance.worlds[0]
+        firstBlockPos = BlockPos(0, LEVEL, 0)
+        if (isDebugging) {
             serverInstance.setProperty("max-tick-time", 0L)
             serverInstance.saveProperties()
             val threadmxbean = ManagementFactory.getThreadMXBean()
             val athreadinfo = threadmxbean.dumpAllThreads(true, true)
             val watchdog = athreadinfo.find { it.threadName == "Server Watchdog" }
             if (watchdog != null) error("Watchdog already running! Set max-tick-time to 0, please restart the server!")
+
+            // set rules for spawning players without annoying stuff
+            world.spawnPoint = firstBlockPos
+            world.gameRules.setOrCreateGameRule("spawnRadius", "0")
+            world.gameRules.setOrCreateGameRule("doDaylightCycle", "false")
+            world.gameRules.setOrCreateGameRule("doWeatherCycle", "false")
+            world.worldTime = 5000
+            world.worldInfo.cleanWeatherTime = 15000
+            world.worldInfo.rainTime = 0
+            world.worldInfo.thunderTime = 0
+            world.worldInfo.isRaining = false
+            world.worldInfo.isThundering = false
         }
-        world = serverInstance.worlds[0]
         val task = startTests(LogisticsPipes.log::info)
         task.invokeOnCompletion {
             if (it != null) throw it
             repeat(3) {
-                println("All Tests done.")
+                LogisticsPipes.log.info("All Tests done.")
             }
-            if (!DEBUGGING) serverInstance.initiateShutdown()
+            if (!isDebugging) serverInstance.initiateShutdown()
         }
     }
 
     fun startTests(logger: (Any) -> Unit) =
         Coroutines.serverScope.launch(CoroutineName("logisticspipes.test")) {
             delay(Duration.ofSeconds(1 * TIMEOUT_MODIFIER).toMillis())
-            println("[STARTING LOGISTICSPIPES TESTS]")
+            logger("[STARTING LOGISTICSPIPES TESTS]")
             withTimeout(Duration.ofMinutes(3)) {
-                testBlockBuilder = TestWorldBuilder(world)
+                testBlockBuilder = TestWorldBuilder(world, firstBlockPos)
+                world.spawnPoint = testBlockBuilder.buildSpawnPlatform()
                 listOf(
                     async {
-                        CraftingTest.`test fuzzy-input crafting succeeds multi-request with mixed input OreDict`(
+                        CraftingTest.`test single fuzzy ingredient crafting fails multi-request with mixed OreDict input`(
                             loggerIn = logger,
                             selector = testBlockBuilder.newSelector(),
                         )
                     },
                     async {
-                        CraftingTest.`test fuzzy-input crafting succeeds with mixed input OreDict`(
+                        CraftingTest.`test single fuzzy ingredient crafting fails with mixed OreDict input`(
                             loggerIn = logger,
                             selector = testBlockBuilder.newSelector(),
                         )
                     },
                     async {
-                        CraftingTest.`test fuzzy-input crafting succeeds multi-request with sufficient mixed input OreDict`(
+                        CraftingTest.`test single fuzzy ingredient crafting succeeds multi-request with sufficient input of one OreDict type`(
                             loggerIn = logger,
                             selector = testBlockBuilder.newSelector(),
                         )
                     },
                     async {
-                        CraftingTest.`test fuzzy-input crafting succeeds with sufficient mixed input OreDict`(
+                        CraftingTest.`test single fuzzy ingredient crafting succeeds with sufficient input of one OreDict type`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test split fuzzy ingredients crafting succeeds multi-request with mixed OreDict input`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test split fuzzy ingredients crafting succeeds with leftover mixed OreDict input`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test split fuzzy ingredients crafting succeeds multi-request with leftover mixed OreDict input`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test single fuzzy ingredient crafting fails with mixed OreDict input on two provider pipes on one double chest`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test single fuzzy ingredient crafting fails with mixed OreDict input on different providers`(
+                            loggerIn = logger,
+                            selector = testBlockBuilder.newSelector(),
+                        )
+                    },
+                    async {
+                        CraftingTest.`test split fuzzy ingredients crafting succeeds with mixed OreDict input`(
                             loggerIn = logger,
                             selector = testBlockBuilder.newSelector(),
                         )
@@ -117,5 +173,43 @@ object MinecraftTest {
                 ).awaitAll()
             }
         }
+
+    suspend inline fun runTest(
+        crossinline loggerIn: (Any) -> Unit,
+        selector: BlockPosSelector,
+        throwable: Throwable = Throwable(),
+        crossinline runnable: suspend () -> Unit,
+        onFail: (logger: (Any) -> Unit, error: Throwable) -> Unit,
+    ) {
+        val testName = throwable.stackTrace[0].methodName
+        val logger = { msg: Any -> loggerIn("$testName $msg") }
+        try {
+            runnable()
+            selector.setVisibleState(TestState.PASSED)
+            logger("[PASSED]")
+        } catch (e: Throwable) {
+            onFail(logger, e)
+        }
+    }
+
+    suspend inline fun skippedTest(
+        crossinline loggerIn: (Any) -> Unit,
+        selector: BlockPosSelector,
+        throwable: Throwable = Throwable(),
+        crossinline runnable: suspend () -> Unit,
+    ) = runTest(loggerIn = loggerIn, selector = selector, throwable = throwable, runnable = runnable) { logger, _ ->
+        selector.setVisibleState(TestState.SKIPPED)
+        logger("[SKIPPED]")
+    }
+
+    suspend inline fun regularTest(
+        crossinline loggerIn: (Any) -> Unit,
+        selector: BlockPosSelector,
+        throwable: Throwable = Throwable(),
+        crossinline runnable: suspend () -> Unit,
+    ) = runTest(loggerIn = loggerIn, selector = selector, throwable = throwable, runnable = runnable) { logger, error ->
+        selector.setVisibleState(TestState.FAILED)
+        logger("[FAILED]\n==> ${error.stackTraceToString()}")
+    }
 
 }
