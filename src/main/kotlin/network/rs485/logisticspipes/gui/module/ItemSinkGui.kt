@@ -35,10 +35,11 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.gui.widget.module
+package network.rs485.logisticspipes.gui.module
 
 import network.rs485.logisticspipes.gui.*
 import network.rs485.logisticspipes.gui.widget.FuzzySelectionWidget
+import network.rs485.logisticspipes.inventory.container.ItemSinkContainer
 import network.rs485.logisticspipes.property.BooleanProperty
 import network.rs485.logisticspipes.property.InventoryProperty
 import network.rs485.logisticspipes.property.PropertyLayer

@@ -45,6 +45,7 @@ import network.rs485.logisticspipes.gui.widget.FuzzyItemSlot
 import network.rs485.logisticspipes.gui.widget.FuzzySelectionWidget
 import network.rs485.logisticspipes.gui.widget.GhostSlot
 import network.rs485.logisticspipes.gui.widget.Tooltipped
+import network.rs485.logisticspipes.inventory.container.LPBaseContainer
 import network.rs485.logisticspipes.util.IRectangle
 import network.rs485.logisticspipes.util.math.MutableRectangle
 import logisticspipes.utils.gui.DummySlot

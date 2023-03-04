@@ -35,10 +35,11 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.gui.widget.module
+package network.rs485.logisticspipes.gui.module
 
 import network.rs485.logisticspipes.gui.*
 import network.rs485.logisticspipes.inventory.ProviderMode
+import network.rs485.logisticspipes.inventory.container.ProviderContainer
 import network.rs485.logisticspipes.property.BooleanProperty
 import network.rs485.logisticspipes.property.EnumProperty
 import network.rs485.logisticspipes.property.PropertyLayer
