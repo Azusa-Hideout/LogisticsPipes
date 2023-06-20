@@ -1,9 +1,9 @@
 package logisticspipes.modules;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.annotation.Nonnull;
-
-import com.google.common.collect.ImmutableList;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -16,27 +16,18 @@ import logisticspipes.network.abstractguis.ModuleInHandGuiProvider;
 import logisticspipes.network.guis.module.inpipe.FluidSupplierSlot;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipes.PipeLogisticsChassis.ChassiTargetInformation;
-import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import network.rs485.logisticspipes.module.Gui;
-import network.rs485.logisticspipes.property.BooleanProperty;
-import network.rs485.logisticspipes.property.InventoryProperty;
+import network.rs485.logisticspipes.property.ItemIdentifierInventoryProperty;
 import network.rs485.logisticspipes.property.Property;
 
 public class ModuleFluidSupplier extends LogisticsModule implements IClientInformationProvider, Gui {
 
-	protected final FluidRoutedPipe fluidPipe = (FluidRoutedPipe) _service;
-
-	public final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
-
-	public final InventoryProperty filterInventory = new InventoryProperty(
+	private final ItemIdentifierInventoryProperty filterInventory = new ItemIdentifierInventoryProperty(
 			new ItemIdentifierInventory(9, "Requested liquids", 1), "");
-	public final BooleanProperty _requestPartials = new BooleanProperty(false, "requestpartials");
 
 	private SinkReply _sinkReply;
 
@@ -49,10 +40,7 @@ public class ModuleFluidSupplier extends LogisticsModule implements IClientInfor
 	@Nonnull
 	@Override
 	public List<Property<?>> getProperties() {
-		return ImmutableList.<Property<?>>builder()
-			.add(filterInventory)
-			.add(_requestPartials)
-			.build();
+		return Collections.singletonList(filterInventory);
 	}
 
 	@Nonnull
@@ -90,35 +78,7 @@ public class ModuleFluidSupplier extends LogisticsModule implements IClientInfor
 	}
 
 	@Override
-	public void tick() {
-
-	}
-
-	public void decreaseRequested(ItemIdentifierStack item) {
-		int remaining = item.getStackSize();
-		//see if we can get an exact match
-		Integer count = _requestedItems.get(item.getItem());
-		if (count != null) {
-			_requestedItems.put(item.getItem(), Math.max(0, count - remaining));
-			remaining -= count;
-		}
-		if (remaining <= 0) {
-			return;
-		}
-		//still remaining... was from fuzzyMatch on a crafter
-		for (Map.Entry<ItemIdentifier, Integer> e : _requestedItems.entrySet()) {
-			if (e.getKey().item == item.getItem().item && e.getKey().itemDamage == item.getItem().itemDamage) {
-				int expected = e.getValue();
-				e.setValue(Math.max(0, expected - remaining));
-				remaining -= expected;
-			}
-			if (remaining <= 0) {
-				return;
-			}
-		}
-		//we have no idea what this is, log it.
-		fluidPipe.debug.log("liquid supplier got unexpected item " + item);
-	}
+	public void tick() {}
 
 	@Override
 	public @Nonnull
