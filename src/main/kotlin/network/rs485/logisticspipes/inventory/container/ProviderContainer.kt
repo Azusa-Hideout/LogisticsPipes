@@ -37,36 +37,52 @@
 
 package network.rs485.logisticspipes.inventory.container
 
+import network.rs485.logisticspipes.gui.widget.GhostItemSlot
+import network.rs485.logisticspipes.gui.widget.GhostSlot
+import network.rs485.logisticspipes.property.InventoryProperty
+import network.rs485.logisticspipes.property.layer.PropertyOverlay
+import network.rs485.logisticspipes.property.layer.PropertyOverlayInventoryAdapter
 import logisticspipes.modules.ModuleProvider
+import logisticspipes.utils.item.ItemIdentifierInventory
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
-import network.rs485.logisticspipes.gui.widget.GhostItemSlot
-import network.rs485.logisticspipes.gui.widget.GhostSlot
 
 class ProviderContainer(
     providerModule: ModuleProvider,
     playerInventoryIn: IInventory,
-    filterInventoryIn: IInventory,
+    filterInventoryOverlay: PropertyOverlay<ItemIdentifierInventory, out InventoryProperty<ItemIdentifierInventory>>,
     moduleInHand: ItemStack,
-) : LPBaseContainer(providerModule) {
+) : LPBaseContainer<ModuleProvider>(providerModule) {
 
     val playerSlots = addPlayerSlotsToContainer(playerInventoryIn, 0, 0, moduleInHand)
-    val filterSlots = addDummySlotsToContainer(filterInventoryIn, 0, 0)
+
+    val filterSlots = addDummySlotsToContainer(
+        overlayInventory = PropertyOverlayInventoryAdapter(filterInventoryOverlay),
+        baseProperty = module.filterInventory,
+        startX = 0,
+        startY = 0,
+    )
 
     // Add 3x3 grid of dummy slots.
-    override fun addDummySlotsToContainer(dummyInventoryIn: IInventory, startX: Int, startY: Int): List<GhostSlot> {
+    override fun addDummySlotsToContainer(
+        overlayInventory: IInventory,
+        baseProperty: InventoryProperty<*>?,
+        startX: Int,
+        startY: Int
+    ): List<GhostSlot> {
         val filterSlots = mutableListOf<GhostSlot>()
 
         for (row in 0..2) {
             for (column in 0..2) {
                 filterSlots.add(
                     addGhostItemSlotToContainer(
-                        dummyInventoryIn = dummyInventoryIn,
+                        dummyInventoryIn = overlayInventory,
+                        baseProperty = baseProperty,
                         slotId = column + row * 3,
                         posX = startX + column * slotSize,
-                        posY = startY + row * slotSize
-                    ) as GhostItemSlot
+                        posY = startY + row * slotSize,
+                    ),
                 )
             }
         }

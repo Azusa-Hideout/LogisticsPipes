@@ -41,8 +41,8 @@ import network.rs485.logisticspipes.gui.*
 import network.rs485.logisticspipes.gui.widget.FuzzySelectionWidget
 import network.rs485.logisticspipes.inventory.container.ItemSinkContainer
 import network.rs485.logisticspipes.property.BooleanProperty
-import network.rs485.logisticspipes.property.InventoryProperty
-import network.rs485.logisticspipes.property.PropertyLayer
+import network.rs485.logisticspipes.property.ItemIdentifierInventoryProperty
+import network.rs485.logisticspipes.property.layer.PropertyLayer
 import network.rs485.logisticspipes.util.IRectangle
 import network.rs485.logisticspipes.util.TextUtil
 import logisticspipes.modules.ModuleItemSink
@@ -135,23 +135,19 @@ class ItemSinkGui private constructor(
         ): ItemSinkGui {
             val propertyLayer = PropertyLayer(itemSinkModule.properties)
             val filterInventoryOverlay = propertyLayer.overlay(itemSinkModule.filterInventory)
-            // FIXME: we don't know if read or write, so write is the fallback -- overlay needs IInventory compatibility. Ben will work on this
-            val gui = filterInventoryOverlay.write { filterInventory ->
-                ItemSinkGui(
+            return ItemSinkGui(
+                itemSinkModule = itemSinkModule,
+                itemSinkContainer = ItemSinkContainer(
+                    playerInventory = playerInventory,
+                    filterInventoryOverlay = filterInventoryOverlay,
                     itemSinkModule = itemSinkModule,
-                    itemSinkContainer = ItemSinkContainer(
-                        playerInventory = playerInventory,
-                        filterInventory = filterInventory,
-                        itemSinkModule = itemSinkModule,
-                        propertyLayer = propertyLayer,
-                        isFuzzy = isFuzzy,
-                        moduleInHand = lockedStack,
-                    ),
                     propertyLayer = propertyLayer,
-                    inHand = inHand,
-                )
-            }
-            return gui
+                    isFuzzy = isFuzzy,
+                    moduleInHand = lockedStack,
+                ),
+                propertyLayer = propertyLayer,
+                inHand = inHand,
+            )
         }
     }
 
@@ -168,7 +164,7 @@ class ItemSinkGui private constructor(
 
     fun importFromInventory(importedItems: List<ItemIdentifier>) {
         if (importedItems.isEmpty()) return
-        filterInventoryOverlay.write { filterInventory: InventoryProperty ->
+        filterInventoryOverlay.write { filterInventory: ItemIdentifierInventoryProperty ->
             for (i in filterInventory.indices) {
                 if (i < importedItems.size) {
                     filterInventory.setInventorySlotContents(i, importedItems[i].makeStack(1))
@@ -191,7 +187,7 @@ class ItemSinkGui private constructor(
     }
 
     override fun <I : Any?> getFilterSlots(): MutableList<IGhostIngredientHandler.Target<I>> {
-        return (inventorySlots as ItemSinkContainer).filterSlots.map { slot ->
+        return itemSinkContainer.filterSlots.map { slot ->
             object : IGhostIngredientHandler.Target<I> {
                 override fun accept(ingredient: I) {
                     if (ingredient is ItemStack) {

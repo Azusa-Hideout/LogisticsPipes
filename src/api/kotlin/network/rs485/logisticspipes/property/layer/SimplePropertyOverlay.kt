@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -35,27 +35,26 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.property
+package network.rs485.logisticspipes.property.layer
 
-import net.minecraft.nbt.NBTTagCompound
+import network.rs485.logisticspipes.property.Property
 
-class EnumProperty<E : Enum<E>>(
-    private val defaultValue: E,
-    override val tagKey: String,
-    private val enumValues: Array<E>,
-) : ValueProperty<E>(defaultValue) {
+class SimplePropertyOverlay<T : Any, P : Property<T>>(private val sourceProperty: P) :
+    PropertyOverlay<T, P> {
+    private var isPropertyCopied: Boolean = false
+    private lateinit var copiedProperty: P
 
-    override fun readFromNBT(tag: NBTTagCompound) {
-        if (tag.hasKey(tagKey)) value = (enumValues.getOrNull(tag.getInteger(tagKey)) ?: defaultValue)
+    override fun <V> read(func: (P) -> V): V =
+        if (isPropertyCopied) func(copiedProperty) else func(sourceProperty)
+
+    override fun <V> write(func: (P) -> V): V {
+        if (!isPropertyCopied) {
+            @Suppress("UNCHECKED_CAST") // as specified by copyProperty
+            copiedProperty = sourceProperty.copyProperty() as P
+            isPropertyCopied = true
+        }
+        return func(copiedProperty)
     }
 
-    override fun writeToNBT(tag: NBTTagCompound) = tag.setInteger(tagKey, value.ordinal)
-
-    override fun copyValue(): E = value
-
-    override fun copyProperty(): EnumProperty<out E> =
-        EnumProperty(defaultValue, tagKey, enumValues).also { it.value = copyValue() }
-
-    fun next() = (enumValues.getOrNull(value.ordinal + 1) ?: enumValues[0]).also { value = it }
-
+    override fun isWriteMode(): Boolean = isPropertyCopied
 }

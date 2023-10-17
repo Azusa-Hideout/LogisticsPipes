@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2021  RS485
+ * Copyright (c) 2023  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -37,25 +37,8 @@
 
 package network.rs485.logisticspipes.property
 
-import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.inventory.IInventory
 
-class EnumProperty<E : Enum<E>>(
-    private val defaultValue: E,
-    override val tagKey: String,
-    private val enumValues: Array<E>,
-) : ValueProperty<E>(defaultValue) {
-
-    override fun readFromNBT(tag: NBTTagCompound) {
-        if (tag.hasKey(tagKey)) value = (enumValues.getOrNull(tag.getInteger(tagKey)) ?: defaultValue)
-    }
-
-    override fun writeToNBT(tag: NBTTagCompound) = tag.setInteger(tagKey, value.ordinal)
-
-    override fun copyValue(): E = value
-
-    override fun copyProperty(): EnumProperty<out E> =
-        EnumProperty(defaultValue, tagKey, enumValues).also { it.value = copyValue() }
-
-    fun next() = (enumValues.getOrNull(value.ordinal + 1) ?: enumValues[0]).also { value = it }
-
+interface InventoryProperty<T : IInventory> : Property<T>, IInventory {
+    override fun copyProperty(): InventoryProperty<out T>
 }

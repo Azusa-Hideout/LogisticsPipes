@@ -45,8 +45,12 @@ interface Property<V> : IStore {
     val propertyObservers: CopyOnWriteArraySet<ObserverCallback<V>>
 
     fun iChanged() = propertyObservers.forEach { observer -> observer.invoke(this) }
-    fun <T> T.alsoIChanged() = this.also { iChanged() }
+    fun <T> T.alsoIChanged(): T = this.also { iChanged() }
     fun addObserver(callback: ObserverCallback<V>) = propertyObservers.add(callback)
     fun copyValue(): V
-    fun copyProperty(): Property<V>
+
+    /**
+     * Copies the property and its current value. Must always return property of same class as the callee.
+     */
+    fun copyProperty(): Property<out V>
 }

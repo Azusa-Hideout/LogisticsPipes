@@ -51,7 +51,7 @@ object PropertyUpdaterEventListener {
         MainProxy.runOnServer(player.world) {
             Runnable {
                 val guiContainer = event.container
-                if (guiContainer is LPBaseContainer) {
+                if (guiContainer is LPBaseContainer<*>) {
                     val module = guiContainer.module
                     propertyUpdaters.add(
                         PropertyUpdater(player, module, module.properties)
