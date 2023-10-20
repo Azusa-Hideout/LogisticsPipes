@@ -11,7 +11,6 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import lombok.Getter;
 import lombok.Setter;
 
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.orderer.GuiOrderer;
 import logisticspipes.gui.orderer.GuiRequestTable;
@@ -21,6 +20,10 @@ import logisticspipes.request.resources.IResource.ColorCode;
 import logisticspipes.request.resources.ResourceNetwork;
 import logisticspipes.utils.StaticResolve;
 import logisticspipes.utils.string.ChatColor;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import network.rs485.logisticspipes.util.LPDataInput;
 import network.rs485.logisticspipes.util.LPDataOutput;
 
@@ -45,8 +48,8 @@ public class MissingItems extends ModernPacket {
 	}
 
 	@Override
-	@ClientSideOnlyMethodContent
-	public void processPacket(EntityPlayer player) {
+    @SideOnly(Side.CLIENT)
+    public void processPacket(EntityPlayer player) {
 		if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
 			((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
 					.handleRequestAnswer(getItems(), isFlag(), (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen, player);

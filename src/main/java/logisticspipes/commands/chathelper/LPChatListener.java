@@ -17,12 +17,14 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import logisticspipes.LogisticsPipes;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LPChatListener {
 
@@ -106,18 +108,18 @@ public class LPChatListener {
 		}
 	}
 
-	@ClientSideOnlyMethodContent
+	@SideOnly(Side.CLIENT)
 	private void clearChat() {
 		FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().clearChatMessages(true);
 	}
 
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	private void storeSendMessages() {
 		sendChatMessages = new ArrayList<>();
 		sendChatMessages.addAll(FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getSentMessages());
 	}
 
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	private void restoreSendMessages() {
 		if (sendChatMessages != null) {
 			for (String o : sendChatMessages) {
@@ -127,7 +129,7 @@ public class LPChatListener {
 		}
 	}
 
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	private void addSendMessages(String substring) {
 		if (sendChatMessages != null) {
 			sendChatMessages.add(substring);

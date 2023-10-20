@@ -5,10 +5,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import lombok.Getter;
 import lombok.Setter;
 
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.utils.StaticResolve;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import network.rs485.logisticspipes.util.LPDataInput;
 import network.rs485.logisticspipes.util.LPDataOutput;
 
@@ -48,7 +51,7 @@ public class OpenGUIPacket extends ModernPacket {
 	}
 
 	@Override
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	public void processPacket(EntityPlayer player) {
 		NewGuiHandler.openGui(this, player);
 	}

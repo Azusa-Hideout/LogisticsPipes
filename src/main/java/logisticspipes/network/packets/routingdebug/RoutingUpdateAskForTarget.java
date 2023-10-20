@@ -5,12 +5,15 @@ import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraftforge.fml.client.FMLClientHandler;
 
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.routingdebug.RoutingUpdateTargetResponse.TargetMode;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.StaticResolve;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import network.rs485.logisticspipes.util.LPDataInput;
 import network.rs485.logisticspipes.util.LPDataOutput;
 
@@ -25,7 +28,7 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
 	public void readData(LPDataInput input) {}
 
 	@Override
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	public void processPacket(EntityPlayer player) {
 		RayTraceResult box = FMLClientHandler.instance().getClient().objectMouseOver;
 		if (box == null) {

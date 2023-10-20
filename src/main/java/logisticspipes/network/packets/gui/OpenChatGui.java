@@ -5,9 +5,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import net.minecraftforge.fml.client.FMLClientHandler;
 
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.utils.StaticResolve;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import network.rs485.logisticspipes.util.LPDataInput;
 import network.rs485.logisticspipes.util.LPDataOutput;
 
@@ -22,7 +25,7 @@ public class OpenChatGui extends ModernPacket {
 	public void readData(LPDataInput input) {}
 
 	@Override
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	public void processPacket(EntityPlayer player) {
 		FMLClientHandler.instance().getClient().displayGuiScreen(new GuiChat());
 	}

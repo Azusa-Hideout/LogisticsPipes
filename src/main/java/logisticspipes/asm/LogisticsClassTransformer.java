@@ -252,34 +252,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
 		ClassReader reader = new ClassReader(bytes);
 		reader.accept(node, 0);
 		boolean changed = false;
-		for (MethodNode m : node.methods) {
-			if (m.visibleAnnotations != null) {
-				for (AnnotationNode a : m.visibleAnnotations) {
-					if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
-						if (FMLCommonHandler.instance().getSide().equals(Side.SERVER)) {
-							m.instructions.clear();
-							m.localVariables.clear();
-							m.tryCatchBlocks.clear();
-							m.visitCode();
-							Label l0 = new Label();
-							m.visitLabel(l0);
-							m.visitMethodInsn(Opcodes.INVOKESTATIC, "logisticspipes/asm/LogisticsASMHookClass", "callingClearedMethod", "()V");
-							Label l1 = new Label();
-							m.visitLabel(l1);
-							m.visitInsn(Opcodes.RETURN);
-							Label l2 = new Label();
-							m.visitLabel(l2);
-							m.visitLocalVariable("this", "Llogisticspipes/network/packets/DummyPacket;", null, l0, l2, 0);
-							m.visitLocalVariable("player", "Lnet/minecraft/entity/player/EntityPlayer;", null, l0, l2, 1);
-							m.visitMaxs(0, 2);
-							m.visitEnd();
-							changed = true;
-							break;
-						}
-					}
-				}
-			}
-		}
 		List<FieldNode> fieldsToRemove = new ArrayList<>();
 		for (FieldNode f : node.fields) {
 			if (f.visibleAnnotations != null) {

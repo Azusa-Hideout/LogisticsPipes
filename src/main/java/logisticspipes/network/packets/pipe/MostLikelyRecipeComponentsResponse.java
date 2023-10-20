@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import lombok.Getter;
 import lombok.Setter;
 
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.gui.GuiLogisticsCraftingTable;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.popup.GuiRecipeImport;
@@ -17,6 +16,10 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.utils.StaticResolve;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SubGuiScreen;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import network.rs485.logisticspipes.util.LPDataInput;
 import network.rs485.logisticspipes.util.LPDataOutput;
 
@@ -37,7 +40,7 @@ public class MostLikelyRecipeComponentsResponse extends ModernPacket {
 	}
 
 	@Override
-	@ClientSideOnlyMethodContent
+    @SideOnly(Side.CLIENT)
 	public void processPacket(EntityPlayer player) {
 		GuiScreen firstGui = Minecraft.getMinecraft().currentScreen;
 		LogisticsBaseGuiScreen gui;
