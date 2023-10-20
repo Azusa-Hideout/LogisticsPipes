@@ -59,7 +59,7 @@ import network.rs485.logisticspipes.util.FuzzyUtil;
 import network.rs485.logisticspipes.util.TextUtil;
 
 @net.minecraftforge.fml.common.Optional.Interface
-    (iface = LPConstants.neiModID, modid = "codechicken.nei.api.INEIGuiHandler")
+    (modid = LPConstants.neiModID, iface = "codechicken.nei.api.INEIGuiHandler")
 public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISubGuiControler, INEIGuiHandler, IGuiAccess {
 
 	protected static final ResourceLocation ITEMSINK = new ResourceLocation("logisticspipes", "textures/gui/itemsink.png");
