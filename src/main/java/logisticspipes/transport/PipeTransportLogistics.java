@@ -627,11 +627,9 @@ public class PipeTransportLogistics {
 			if (util != null) {
 				return util.getSizeInventory() > 0;
 			}
-			return isPipeCheck(tile);
-		} else {
-			return isPipeCheck(tile);
-		}
-	}
+        }
+        return isPipeCheck(tile);
+    }
 
 	protected boolean isPipeCheck(TileEntity tile) {
 		return SimpleServiceLocator.pipeInformationManager.isItemPipe(tile);
