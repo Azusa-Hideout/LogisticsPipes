@@ -11,7 +11,7 @@ import network.rs485.logisticspipes.property.*;
 
 public class ModuleFluidSupplierMK2 extends ModuleFluidSupplier {
 
-	public final InventoryProperty dummyInventory = new InventoryProperty(
+	public final ItemIdentifierInventoryProperty dummyInventory = new ItemIdentifierInventoryProperty(
 		new ItemIdentifierInventory(1, "Fluid to keep stocked", 127, true), "");
 	public final IntegerProperty amount = new IntegerProperty(0, "amount");
 	public final EnumProperty<PipeFluidSupplierMk2.MinMode> _bucketMinimum = new EnumProperty<>(PipeFluidSupplierMk2.MinMode.ONEBUCKET,
@@ -23,7 +23,7 @@ public class ModuleFluidSupplierMK2 extends ModuleFluidSupplier {
 		return ImmutableList.<Property<?>>builder()
 			.add(dummyInventory)
 			.add(amount)
-			.add(_requestPartials)
+//			.add(_requestPartials)
 			.add(_bucketMinimum)
 			.build();
 	}

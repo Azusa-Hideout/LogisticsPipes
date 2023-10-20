@@ -189,7 +189,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
 				boolean success = false;
 
-				if (moduleFluidSupplierMK2._requestPartials.getValue()) {
+				if (/*moduleFluidSupplierMK2._requestPartials.getValue()*/ false) {
 					countToRequest = RequestTree.requestFluidPartial(need, countToRequest, this, null);
 					if (countToRequest > 0) {
 						success = true;
@@ -252,11 +252,12 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 	public void liquidNotInserted(FluidIdentifier item, int amount) {}
 
 	public boolean isRequestingPartials() {
-		return moduleFluidSupplierMK2._requestPartials.getValue();
+//		return moduleFluidSupplierMK2._requestPartials.getValue();
+        return false;
 	}
 
 	public void setRequestingPartials(boolean value) {
-		moduleFluidSupplierMK2._requestPartials.setValue(value);
+//		moduleFluidSupplierMK2._requestPartials.setValue(value);
 	}
 
 	public MinMode getMinMode() {

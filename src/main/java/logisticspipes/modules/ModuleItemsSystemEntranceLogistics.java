@@ -6,11 +6,11 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 import logisticspipes.utils.item.ItemIdentifierInventory;
-import network.rs485.logisticspipes.property.InventoryProperty;
+import network.rs485.logisticspipes.property.ItemIdentifierInventoryProperty;
 import network.rs485.logisticspipes.property.Property;
 
 public class ModuleItemsSystemEntranceLogistics extends LogisticsModule {
-	public final InventoryProperty inv = new InventoryProperty(new ItemIdentifierInventory(1, "Freq Slot", 1), "");
+	public final ItemIdentifierInventoryProperty inv = new ItemIdentifierInventoryProperty(new ItemIdentifierInventory(1, "Freq Slot", 1), "");
 
 	@NotNull
 	@Override

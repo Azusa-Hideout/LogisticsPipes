@@ -39,13 +39,13 @@ public class ChassisModule extends LogisticsModule implements Gui {
 
 	private final PipeLogisticsChassis parentChassis;
 	private final SlottedModuleListProperty modules;
-	public final InventoryProperty _moduleInventory;
+	public final ItemIdentifierInventoryProperty _moduleInventory;
 	public final ModuleUMListProperty slotUpgradeManagers;
 	public final AdjacentProperty<SingleAdjacent> pointedAdjacent;
 
 	public ChassisModule(int moduleCount, PipeLogisticsChassis parentChassis) {
 		modules = new SlottedModuleListProperty(moduleCount, "modules");
-		_moduleInventory = new InventoryProperty(
+		_moduleInventory = new ItemIdentifierInventoryProperty(
 			new ItemIdentifierInventory(moduleCount, "Chassi pipe", 1), "chassi");
 		slotUpgradeManagers = new ModuleUMListProperty("");
 		pointedAdjacent = new AdjacentProperty<>(null, parentChassis, "Orientation");

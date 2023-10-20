@@ -140,7 +140,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
 		}
 		super.throttledUpdateEntity();
 
-		for (NeighborTileEntity<TileEntity> neighbor : getAdjacent().fluidTanks()) {
+/*		for (NeighborTileEntity<TileEntity> neighbor : getAdjacent().fluidTanks()) {
 			final ITankUtil tankUtil = LPNeighborTileEntityKt.getTankUtil(neighbor);
 			if (tankUtil == null || !tankUtil.containsTanks()) {
 				continue;
@@ -234,26 +234,27 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
 					((PipeItemsFluidSupplier) container.pipe).setRequestFailed(true);
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public void itemLost(ItemIdentifierStack item, IAdditionalTargetInformation info) {
-		moduleFluidSupplier.decreaseRequested(item);
+//		moduleFluidSupplier.decreaseRequested(item);
 	}
 
 	@Override
 	public void itemArrived(ItemIdentifierStack item, IAdditionalTargetInformation info) {
-		moduleFluidSupplier.decreaseRequested(item);
+//		moduleFluidSupplier.decreaseRequested(item);
 		delayThrottle();
 	}
 
 	public boolean isRequestingPartials() {
-		return this.moduleFluidSupplier._requestPartials.getValue();
+//		return this.moduleFluidSupplier._requestPartials.getValue();
+        return false;
 	}
 
 	public void setRequestingPartials(boolean value) {
-		this.moduleFluidSupplier._requestPartials.setValue(value);
+//		this.moduleFluidSupplier._requestPartials.setValue(value);
 	}
 
 	@Override
@@ -263,6 +264,6 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
 
 	/*** GUI ***/
 	public IItemIdentifierInventory getDummyInventory() {
-		return this.moduleFluidSupplier.filterInventory;
+		return (IItemIdentifierInventory) this.moduleFluidSupplier.getFilterInventory();
 	}
 }

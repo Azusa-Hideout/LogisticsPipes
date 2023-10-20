@@ -7,7 +7,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import net.minecraft.nbt.NBTTagCompound;
 
 import network.rs485.logisticspipes.property.BooleanProperty;
-import network.rs485.logisticspipes.property.InventoryProperty;
+import network.rs485.logisticspipes.property.ItemIdentifierInventoryProperty;
 
 import network.rs485.logisticspipes.property.Property;
 
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ModuleFirewall extends LogisticsModule {
-	public final InventoryProperty inv = new InventoryProperty(new ItemIdentifierInventory(6 * 6, "Filter Inv", 1), "");
+	public final ItemIdentifierInventoryProperty inv = new ItemIdentifierInventoryProperty(new ItemIdentifierInventory(6 * 6, "Filter Inv", 1), "");
 	public final BooleanProperty blockProvider = new BooleanProperty(false, "blockProvider");
 	public final BooleanProperty blockCrafter = new BooleanProperty(false, "blockCrafter");
 	public final BooleanProperty blockSorting = new BooleanProperty(false, "blockSorting");
