@@ -582,9 +582,9 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 		} else if (nbt instanceof NBTTagList) {
 			HashMap<Integer, Object> content = new HashMap<>();
 			int i = 1;
-			for (Object object : ((NBTTagList) nbt)) {
-				if (object instanceof NBTBase) {
-					content.put(i, ItemIdentifier.getNBTBaseAsMap((NBTBase) object));
+			for (NBTBase object : ((NBTTagList) nbt)) {
+				if (object != null) {
+					content.put(i, ItemIdentifier.getNBTBaseAsMap(object));
 				}
 				i++;
 			}

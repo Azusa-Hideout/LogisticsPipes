@@ -281,9 +281,8 @@ public class MainProxy {
 		}
 		if (packet.isCompressable() || MainProxy.needsToBeCompressed(packet)) {
 			for (World world : DimensionManager.getWorlds()) {
-				for (Object playerObject : world.playerEntities) {
-					EntityPlayer player = (EntityPlayer) playerObject;
-					SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(packet, player);
+				for (EntityPlayer playerObject : world.playerEntities) {
+                    SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(packet, playerObject);
 				}
 			}
 		} else {

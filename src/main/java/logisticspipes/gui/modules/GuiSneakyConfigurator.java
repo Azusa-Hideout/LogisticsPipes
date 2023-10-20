@@ -55,9 +55,8 @@ public class GuiSneakyConfigurator extends ModuleBaseGui {
 	}
 
 	private void refreshButtons() {
-		for (Object p : buttonList) {
-			GuiButton button = (GuiButton) p;
-			button.displayString = getButtonOrientationString(button.id == 6 ? null : EnumFacing.byIndex(button.id));
+		for (GuiButton p : buttonList) {
+            p.displayString = getButtonOrientationString(p.id == 6 ? null : EnumFacing.byIndex(p.id));
 		}
 	}
 
