@@ -408,7 +408,7 @@ public class RequestTreeNode {
 			}
 		}
 		workWeightedSorter wSorter = new workWeightedSorter(0); // distance doesn't matter, because ingredients have to be delivered to the crafter, and we can't tell how long that will take.
-		Collections.sort(validSources, wSorter);
+		validSources.sort(wSorter);
 
 		List<Pair<ICraftingTemplate, List<IFilter>>> allCraftersForItem = RequestTreeNode.getCrafters(getRequestType(), validSources);
 
