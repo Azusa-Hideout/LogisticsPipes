@@ -36,7 +36,7 @@ public class PipeFXLaserPowerBall extends Particle {
 		setSize(0.02F, 0.02F);
 		particleRed = ((float) ((color & 0xff0000) >> 16)) / 0xff;
 		particleGreen = ((float) ((color & 0x00ff00) >> 8)) / 0xff;
-		particleBlue = ((float) ((color & 0x0000ff) >> 0)) / 0xff;
+		particleBlue = ((float) (color & 0x0000ff)) / 0xff;
 		canCollide = false;
 		motionX = 0.0D;
 		motionY = 0.0D;

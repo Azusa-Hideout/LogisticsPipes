@@ -268,7 +268,7 @@ public class ClientPacketBufferHandlerThread {
 				} while (flag);
 
 				while (ByteBuffer.length >= 4) {
-					int size = ((ByteBuffer[0] & 255) << 24) + ((ByteBuffer[1] & 255) << 16) + ((ByteBuffer[2] & 255) << 8) + ((ByteBuffer[3] & 255) << 0);
+					int size = ((ByteBuffer[0] & 255) << 24) + ((ByteBuffer[1] & 255) << 16) + ((ByteBuffer[2] & 255) << 8) + (ByteBuffer[3] & 255);
 					if (size + 4 > ByteBuffer.length) {
 						break;
 					}

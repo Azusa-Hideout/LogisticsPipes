@@ -276,7 +276,7 @@ public class ServerPacketBufferHandlerThread {
 				for (Entry<EntityPlayer, byte[]> player : ByteBuffer.entrySet()) {
 					while (player.getValue().length >= 4) {
 						byte[] ByteBufferForPlayer = player.getValue();
-						int size = ((ByteBufferForPlayer[0] & 255) << 24) + ((ByteBufferForPlayer[1] & 255) << 16) + ((ByteBufferForPlayer[2] & 255) << 8) + ((ByteBufferForPlayer[3] & 255) << 0);
+						int size = ((ByteBufferForPlayer[0] & 255) << 24) + ((ByteBufferForPlayer[1] & 255) << 16) + ((ByteBufferForPlayer[2] & 255) << 8) + (ByteBufferForPlayer[3] & 255);
 						if (size + 4 > ByteBufferForPlayer.length) {
 							break;
 						}
