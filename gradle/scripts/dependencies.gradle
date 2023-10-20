@@ -60,7 +60,8 @@ dependencies {
     shadowImplementation group: 'com.charleskorn.kaml', name: 'kaml', version: kaml_version
 
     implementation 'curse.maven:CodeChickenLib-242818:2779848'
-    api rfg.deobf('curse.maven:AE2Unofficial-570458:4632516') // v0.53.4
+    compileOnly 'curse.maven:AE2Unofficial-570458:4632516' // v0.53.4
+    compileOnly rfg.deobf('curse.maven:CodeChickenLib-242818:2779848')
 
     compileOnly group: 'mcjty.theoneprobe', name: 'TheOneProbe-1.12', version: '1.12-1.4.28-17', classifier: 'api'
     compileOnly group: 'mezz.jei', name: 'jei_1.12.2', version: '4.15.0.293'
@@ -79,7 +80,6 @@ dependencies {
     compileOnly group: 'org.squiddev', name: 'cc-tweaked-1.12.2', version: '1.89.2', transitive: false
     compileOnly group: 'com.jaquadro.minecraft.storagedrawers', name: 'StorageDrawers', version: '1.12.2-5.4.2', transitive: false
     compileOnly group: 'pl.asie.charset', name: 'Charset', version: '0.5.6.6', classifier: 'api', transitive: false
-    compileOnly rfg.deobf('curse.maven:CodeChickenLib-242818:2779848')
 
     ktlint("com.pinterest:ktlint:0.47.1") {
         attributes {
