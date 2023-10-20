@@ -76,9 +76,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
 
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] bytes) {
-		// if dev environment and transform on first class is launched, boot the AT remapper
-		if (LogisticsPipesCoreLoader.isDevelopmentEnvironment() && name.equals("net.minecraftforge.fml.common.Loader")) bootATRemapper();
-
 		Thread thread = Thread.currentThread();
 		if (thread.getName().equals("Minecraft main thread") || thread.getName().equals("main") || thread.getName().equals("Server thread")) { //Only clear when called from the main thread to avoid ConcurrentModificationException on start
 			clearNegativeInterfaceCache();
@@ -101,73 +98,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
 			bytes = writer.toByteArray();
 		}
 		return ParamProfiler.handleClass(bytes);
-	}
-
-	private void bootATRemapper() {
-		System.err.println("Fetching ModAccessTransformers");
-		final List<IClassTransformer> modATs = Launch.classLoader.getTransformers().stream().filter(transformer -> transformer instanceof ModAccessTransformer).collect(Collectors.toList());
-		System.err.println("Found " + modATs);
-		if (modATs.size() == 0) return;
-
-		System.err.println("Inserting missing ATs from classpath");
-		try {
-			readClasspathATs(modATs);
-		} catch (IllegalStateException e) {
-			System.err.println("Could not inject classpath FMLATs");
-			e.printStackTrace();
-		}
-
-		System.err.println("Booting Logistics Pipes ModAccessTransformerRemapper");
-		final ModAccessTransformerRemapper remapper;
-		try {
-			remapper = new ModAccessTransformerRemapper();
-		} catch (IllegalStateException e) {
-			System.err.println("Could not initialize ModAccessTransformerRemapper:");
-			e.printStackTrace();
-			return;
-		}
-
-		modATs.forEach(remapper::apply);
-	}
-
-	private void readClasspathATs(List<IClassTransformer> modATs) {
-		final Method readMapFile;
-		try {
-			readMapFile = AccessTransformer.class.getDeclaredMethod("readMapFile", String.class);
-		} catch (NoSuchMethodException e) {
-			throw new IllegalStateException("Could not find method readMapFile on AccessTransformer class", e);
-		}
-		final boolean wasAccessible = readMapFile.isAccessible();
-		if (!wasAccessible) readMapFile.setAccessible(true);
-		try {
-			readClasspathATsInner(path -> {
-				final IClassTransformer classTransformer = modATs.get(0);
-				try {
-					readMapFile.invoke(classTransformer, path);
-				} catch (IllegalAccessException | InvocationTargetException e) {
-					throw new IllegalStateException("Could not access readMapFile method of " + classTransformer);
-				}
-			});
-		} catch (IOException e) {
-			throw new IllegalArgumentException("IO Error when fetching FMLATs", e);
-		} finally {
-			if (!wasAccessible) readMapFile.setAccessible(false);
-		}
-	}
-
-	private void readClasspathATsInner(Consumer<String> readMapFile) throws IOException {
-		final Enumeration<URL> manifestEntries = Launch.classLoader.findResources("META-INF/MANIFEST.MF");
-		while (manifestEntries.hasMoreElements()) {
-			final String accessTransformer;
-			try (InputStream manifestInputStream = manifestEntries.nextElement().openStream()) {
-				final Manifest manifest = new Manifest(manifestInputStream);
-				accessTransformer = manifest.getMainAttributes().getValue(ModAccessTransformer.FMLAT);
-			}
-			final Enumeration<URL> atEntries = Launch.classLoader.findResources("META-INF/" + accessTransformer);
-			while (atEntries.hasMoreElements()) {
-				readMapFile.accept(atEntries.nextElement().toString());
-			}
-		}
 	}
 
 	private byte[] applyLPTransforms(String name, byte[] bytes) {

@@ -16,7 +16,7 @@ public class LogisticsPipesCoreLoader implements IFMLLoadingPlugin {
 	private static boolean coremodLoaded = false;
 	private static boolean developmentEnvironment = false;
 
-	public LogisticsPipesCoreLoader() throws Exception {
+	public LogisticsPipesCoreLoader() {
 		Launch.classLoader.addTransformerExclusion("logisticspipes.asm.");
 		coremodLoaded = true;
 	}
