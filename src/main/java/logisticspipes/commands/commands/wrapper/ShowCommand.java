@@ -64,8 +64,7 @@ public class ShowCommand implements ICommandHandler {
 			Throwable t = wrapper.getReason();
 			if (t == null) {
 				sender.sendMessage(new TextComponentString("null"));
-				return;
-			} else {
+            } else {
 				sender.sendMessage(new TextComponentString("-----------------------------------------------------"));
 				sender.sendMessage(new TextComponentString(t.toString()));
 				for (StackTraceElement s : t.getStackTrace()) {

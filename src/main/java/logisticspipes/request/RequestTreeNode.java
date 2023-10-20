@@ -80,8 +80,8 @@ public class RequestTreeNode {
 		}
 
 		if (requestFlags.contains(ActiveRequestType.Craft) && checkCrafting()) {
-			return;// crafting was able to complete
-		}
+            // crafting was able to complete
+        }
 
 		// crafting is not done!
 	}

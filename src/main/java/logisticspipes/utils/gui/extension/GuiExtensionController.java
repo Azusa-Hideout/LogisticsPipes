@@ -140,8 +140,7 @@ public class GuiExtensionController {
 		} else {
 			if (x > currentlyExtended.getCurrentXPos() && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth() + (side == GuiSide.RIGHT ? 15 : 0) && y > currentlyExtended.getCurrentYPos() && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
 				currentlyExtended.handleMouseOverAt(x, y);
-				return;
-			}
+            }
 		}
 	}
 

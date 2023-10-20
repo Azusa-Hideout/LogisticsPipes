@@ -95,8 +95,7 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 				MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRotationPacket.class).setBlockPos(pos));
 				init = true;
 			}
-			return;
-		}
+        }
 	}
 
 	// backwards compat; TODO remove in 1.13

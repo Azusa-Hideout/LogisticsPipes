@@ -384,8 +384,7 @@ public class HSTubeCurve extends CoreMultiBlockPipe {
 
 		public void rotatePositions(IPositionRotateble set) {
 			if (this == WEST_NORTH) {
-				return;
-			} else if (this == NORTH_EAST) {
+            } else if (this == NORTH_EAST) {
 				set.rotateRight();
 			} else if (this == EAST_SOUTH) {
 				set.rotateLeft();

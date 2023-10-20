@@ -493,20 +493,17 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 		if (editName) {
 			if (c == 13) {
 				editName = false;
-				return;
-			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				name1 = name1 + GuiScreen.getClipboardString();
 			} else if (c == 8) {
 				if (!name1.isEmpty()) {
 					name1 = name1.substring(0, name1.length() - 1);
 				}
-				return;
-			} else if (Character.isLetterOrDigit(c) || c == ' ') {
+            } else if (Character.isLetterOrDigit(c) || c == ' ') {
 				if (mc.fontRenderer.getStringWidth(name1 + c + name2) <= NAME_WIDTH) {
 					name1 += c;
 				}
-				return;
-			} else if (i == 203) { //Left
+            } else if (i == 203) { //Left
 				if (!name1.isEmpty()) {
 					name2 = name1.substring(name1.length() - 1) + name2;
 					name1 = name1.substring(0, name1.length() - 1);
@@ -534,20 +531,17 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 		} else if (editSearch) {
 			if (c == 13) {
 				editSearch = false;
-				return;
-			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				Search1 = Search1 + GuiScreen.getClipboardString();
 			} else if (c == 8) {
 				if (!Search1.isEmpty()) {
 					Search1 = Search1.substring(0, Search1.length() - 1);
 				}
-				return;
-			} else if (Character.isLetterOrDigit(c) || c == ' ') {
+            } else if (Character.isLetterOrDigit(c) || c == ' ') {
 				if (mc.fontRenderer.getStringWidth(Search1 + c + Search2) <= SEARCH_WIDTH) {
 					Search1 += c;
 				}
-				return;
-			} else if (i == 203) { //Left
+            } else if (i == 203) { //Left
 				if (!Search1.isEmpty()) {
 					Search2 = Search1.substring(Search1.length() - 1) + Search2;
 					Search1 = Search1.substring(0, Search1.length() - 1);
