@@ -145,7 +145,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 		clickWasButton = true;
 		switch (guibutton.id) {
 			case 0:
-				if ((searchInput1 + searchInput2).equals("")) {
+				if ((searchInput1 + searchInput2).isEmpty()) {
 					searchInput1 = "0";
 					break;
 				}
@@ -164,7 +164,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 				}
 				break;
 			case 1:
-				if ((searchInput1 + searchInput2).equals("")) {
+				if ((searchInput1 + searchInput2).isEmpty()) {
 					searchInput1 = "1";
 					break;
 				}

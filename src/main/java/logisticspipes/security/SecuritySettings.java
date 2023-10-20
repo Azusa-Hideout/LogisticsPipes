@@ -24,7 +24,7 @@ public class SecuritySettings implements IStore {
 	public void readFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
 		String prev = name;
 		name = nbttagcompound.getString("name");
-		if (name.equals("")) {
+		if (name.isEmpty()) {
 			name = prev;
 		}
 		openGui = nbttagcompound.getBoolean("openGui");

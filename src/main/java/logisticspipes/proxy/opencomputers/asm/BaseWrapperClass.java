@@ -362,7 +362,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
 			return;
 		}
 		String type = nbt.getString("Type");
-		if (type.equals("")) {
+		if (type.isEmpty()) {
 			return;
 		}
 		if (type.equals("LPGlobalCCAccess")) {

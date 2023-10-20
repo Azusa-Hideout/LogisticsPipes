@@ -216,7 +216,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
 				int mouseYMax = localMouseY - slot.getSize();
 				if (slot.getXPos() < localMouseX && slot.getXPos() > mouseXMax && slot.getYPos() < localMouseY && slot.getYPos() > mouseYMax) {
 					if (slot.displayToolTip()) {
-						if (slot.getToolTipText() != null && !slot.getToolTipText().equals("")) {
+						if (slot.getToolTipText() != null && !slot.getToolTipText().isEmpty()) {
 							ArrayList<String> list = new ArrayList<>();
 							list.add(slot.getToolTipText());
 							GuiGraphics.drawToolTip(mouseX, mouseY, list, TextFormatting.WHITE);

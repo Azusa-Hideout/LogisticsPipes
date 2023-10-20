@@ -54,7 +54,7 @@ public class CCObjectWrapper {
 		}
 		String result;
 		if (!clazz.getSuperclass().equals(Object.class)) {
-			if (!(result = CCObjectWrapper.checkForTypeAnotation(clazz.getSuperclass())).equals("")) {
+			if (!(result = CCObjectWrapper.checkForTypeAnotation(clazz.getSuperclass())).isEmpty()) {
 				return result;
 			}
 		}
@@ -133,7 +133,7 @@ public class CCObjectWrapper {
 		if (info == null) {
 			info = new CCWrapperInformation();
 			String type = CCObjectWrapper.checkForTypeAnotation(wrappedClass);
-			if (!type.equals("")) {
+			if (!type.isEmpty()) {
 				info.isCCType = true;
 				info.type = type;
 				Class<?> clazz = wrappedClass;

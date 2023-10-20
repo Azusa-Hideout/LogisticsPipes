@@ -65,7 +65,7 @@ public class ServerProxy implements IProxy {
 
 	private String getNameForCategory(String category, ItemIdentifier item) {
 		String name = langDatabase.get(category, "name", "").getString();
-		if (name.equals("")) {
+		if (name.isEmpty()) {
 			saveLangDatabase();
 			if (item.isDamageable()) {
 				return item.getFriendlyName();
@@ -146,7 +146,7 @@ public class ServerProxy implements IProxy {
 				continue;
 			}
 			String name = langDatabase.get(category, "name", "").getString();
-			if (name.equals("")) {
+			if (name.isEmpty()) {
 				String itemPart = category.substring(10);
 				String metaPart = "0";
 				if (itemPart.contains(".")) {

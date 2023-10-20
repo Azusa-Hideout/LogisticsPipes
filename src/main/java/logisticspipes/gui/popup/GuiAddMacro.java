@@ -64,7 +64,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 	}
 
 	private void loadMacroItems() {
-		if ((name1 + name2).equals("")) {
+		if ((name1 + name2).isEmpty()) {
 			return;
 		}
 		NBTTagList inventar = null;
@@ -444,7 +444,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 		} else if (guibutton.id == 3) {
 			prevPageMacro();
 		} else if (guibutton.id == 4) {
-			if (!(name1 + name2).equals("") && !macroItems.isEmpty()) {
+			if (!(name1 + name2).isEmpty() && !macroItems.isEmpty()) {
 				NBTTagList inventar = new NBTTagList();
 				for (ItemIdentifierStack stack : macroItems) {
 					NBTTagCompound itemNBT = new NBTTagCompound();
