@@ -209,9 +209,8 @@ public class ServerPacketBufferHandlerThread {
 		}
 
 		private void handlePacketData(final Pair<EntityPlayer, byte[]> playerDataPair) {
-			LPDataIOWrapper.provideData(playerDataPair.getValue2(), input -> {
-				PacketHandler.onPacketData(input, playerDataPair.getValue1());
-			});
+			LPDataIOWrapper.provideData(playerDataPair.getValue2(), input ->
+                PacketHandler.onPacketData(input, playerDataPair.getValue1()));
 		}
 
 		public void serverTickEnd() {

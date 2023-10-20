@@ -26,11 +26,10 @@ public class InvSysConSelectChannelPopupGUIProvider extends ChannelInformationLi
 			return null;
 		}
 
-		return new GuiSelectChannelPopup(getChannelInformations(), bPipe.getBlockPos(), sel -> {
-			MainProxy.sendPacketToServer(PacketHandler.getPacket(InvSysConSetChannelOnPipePacket.class)
-					.setString(sel.getChannelIdentifier().toString())
-					.setTilePos(bPipe));
-		});
+		return new GuiSelectChannelPopup(getChannelInformations(), bPipe.getBlockPos(), sel ->
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(InvSysConSetChannelOnPipePacket.class)
+                .setString(sel.getChannelIdentifier().toString())
+                .setTilePos(bPipe)));
 	}
 
 	@Override

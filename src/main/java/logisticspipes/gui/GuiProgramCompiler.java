@@ -173,9 +173,7 @@ public class GuiProgramCompiler extends LogisticsBaseGuiScreen {
 							.filter(it -> StreamSupport.stream(list.spliterator(), false).noneMatch(nbtBase -> ((NBTTagString) nbtBase).getString().equals(it.toString())))
 							.skip(categoryList.getSelected())
 							.findFirst()
-							.ifPresent(it -> {
-								MainProxy.sendPacketToServer(PacketHandler.getPacket(CompilerTriggerTaskPacket.class).setCategory(it).setType("category").setTilePos(compiler));
-							});
+							.ifPresent(it -> MainProxy.sendPacketToServer(PacketHandler.getPacket(CompilerTriggerTaskPacket.class).setCategory(it).setType("category").setTilePos(compiler)));
 				}
 				break;
 			case 3:
