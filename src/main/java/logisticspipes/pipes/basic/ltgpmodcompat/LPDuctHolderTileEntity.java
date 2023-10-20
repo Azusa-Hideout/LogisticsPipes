@@ -10,11 +10,12 @@ import cofh.thermaldynamics.duct.tiles.IDuctHolder;
 import cofh.thermaldynamics.multiblock.MultiBlockGrid;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.proxy.td.subproxies.ITDPart;
 
-@ModDependentInterface(modId = { LPConstants.thermalDynamicsModID }, interfacePath = { "cofh.thermaldynamics.duct.tiles.IDuctHolder" })
+import net.minecraftforge.fml.common.Optional;
+
+@Optional.Interface(modid = LPConstants.thermalDynamicsModID, iface = "cofh.thermaldynamics.duct.tiles.IDuctHolder")
 public abstract class LPDuctHolderTileEntity extends LPMicroblockTileEntity implements IDuctHolder {
 
 	public ITDPart tdPart;

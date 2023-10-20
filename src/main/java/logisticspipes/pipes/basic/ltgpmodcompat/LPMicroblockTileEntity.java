@@ -23,12 +23,12 @@ import mcmultipart.api.slot.IPartSlot;
 import mcmultipart.block.TileMultipartContainer;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.utils.ReflectionHelper;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPLTGPCompanion;
 
-@ModDependentInterface(modId = { LPConstants.mcmpModID }, interfacePath = { "mcmultipart.api.container.IMultipartContainer" })
+@net.minecraftforge.fml.common.Optional.Interface
+    (iface = LPConstants.mcmpModID, modid = "mcmultipart.api.container.IMultipartContainer")
 public abstract class LPMicroblockTileEntity extends TileEntity implements IMultipartContainer {
 
 	public IMCMPLTGPCompanion imcmpltgpCompanion;

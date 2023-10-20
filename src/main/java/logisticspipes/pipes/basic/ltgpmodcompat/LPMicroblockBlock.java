@@ -41,12 +41,12 @@ import mcmultipart.block.TileMultipartContainer;
 import org.apache.commons.lang3.tuple.Pair;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.proxy.SimpleServiceLocator;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPBlockAccess;
 
-@ModDependentInterface(modId = { LPConstants.mcmpModID }, interfacePath = { "mcmultipart.api.container.IMultipartContainerBlock" })
+@net.minecraftforge.fml.common.Optional.Interface
+    (iface = LPConstants.mcmpModID, modid = "mcmultipart.api.container.IMultipartContainerBlock")
 public abstract class LPMicroblockBlock extends BlockContainer implements IMultipartContainerBlock {
 
 	public static IMCMPBlockAccess mcmpBlockAccess = SimpleServiceLocator.mcmpProxy.createMCMPBlockAccess();

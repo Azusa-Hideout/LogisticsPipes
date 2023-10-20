@@ -10,6 +10,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,7 +25,6 @@ import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPBlocks;
 import logisticspipes.LPConstants;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
@@ -41,7 +41,11 @@ import network.rs485.logisticspipes.connection.NeighborTileEntity;
 import network.rs485.logisticspipes.world.DoubleCoordinates;
 import network.rs485.logisticspipes.world.WorldCoordinatesWrapper;
 
-@ModDependentInterface(modId = { LPConstants.openComputersModID, LPConstants.openComputersModID, LPConstants.openComputersModID }, interfacePath = { "li.cil.oc.api.network.ManagedPeripheral", "li.cil.oc.api.network.Environment", "li.cil.oc.api.network.SidedEnvironment" })
+@Optional.InterfaceList({
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment")
+})
 @CCType(name = "LogisticsSolidBlock")
 public class LogisticsSolidTileEntity extends TileEntity implements ITickable, ILPCCTypeHolder, IRotationProvider, ManagedPeripheral, Environment, SidedEnvironment, IOCTile {
 

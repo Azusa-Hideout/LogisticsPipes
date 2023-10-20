@@ -43,7 +43,6 @@ import org.lwjgl.opengl.GL11;
 
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IChainAddList;
 import logisticspipes.interfaces.IFuzzySlot;
@@ -60,7 +59,8 @@ import network.rs485.logisticspipes.util.FuzzyFlag;
 import network.rs485.logisticspipes.util.FuzzyUtil;
 import network.rs485.logisticspipes.util.TextUtil;
 
-@ModDependentInterface(modId = { LPConstants.neiModID }, interfacePath = { "codechicken.nei.api.INEIGuiHandler" })
+@net.minecraftforge.fml.common.Optional.Interface
+    (iface = LPConstants.neiModID, modid = "codechicken.nei.api.INEIGuiHandler")
 public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISubGuiControler, INEIGuiHandler, IGuiAccess {
 
 	protected static final ResourceLocation ITEMSINK = new ResourceLocation("logisticspipes", "textures/gui/itemsink.png");

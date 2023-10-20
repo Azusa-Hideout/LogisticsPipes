@@ -22,7 +22,6 @@ import ic2.api.energy.tile.IEnergySink;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
@@ -47,7 +46,9 @@ import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.utils.PlayerCollectionList;
 
-@ModDependentInterface(modId = { LPConstants.ic2ModID }, interfacePath = { "ic2.api.energy.tile.IEnergySink" })
+import net.minecraftforge.fml.common.Optional;
+
+@Optional.Interface(modid = LPConstants.ic2ModID, iface = "ic2.api.energy.tile.IEnergySink")
 @CCType(name = "LogisticsPowerJunction")
 public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity implements IGuiTileEntity, ILogisticsPowerProvider, IPowerLevelDisplay, IGuiOpenControler, IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler, IEnergySink {
 

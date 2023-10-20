@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -47,7 +48,6 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
@@ -87,9 +87,12 @@ import network.rs485.logisticspipes.world.DoubleCoordinates;
 import network.rs485.logisticspipes.world.DoubleCoordinatesType;
 import network.rs485.logisticspipes.world.WorldCoordinatesWrapper;
 
-@ModDependentInterface(modId = { LPConstants.cofhCoreModID, LPConstants.openComputersModID, LPConstants.openComputersModID, LPConstants.openComputersModID },
-		interfacePath = { "cofh.api.transport.IItemDuct", "li.cil.oc.api.network.ManagedPeripheral",
-				"li.cil.oc.api.network.Environment", "li.cil.oc.api.network.SidedEnvironment", })
+@Optional.InterfaceList({
+    @Optional.Interface(modid = LPConstants.cofhCoreModID, iface = "cofh.api.transport.IItemDuct"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment")
+})
 public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 		implements ITickable, IOCTile, ILPPipeTile, IPipeInformationProvider, /*IItemDuct,*/ ManagedPeripheral, Environment, SidedEnvironment,
 		ILogicControllerTile {

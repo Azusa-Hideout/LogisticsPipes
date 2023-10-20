@@ -7,14 +7,15 @@ import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 
-@ModDependentInterface(modId = { LPConstants.ic2ModID }, interfacePath = { "ic2.api.energy.tile.IEnergySink" })
+import net.minecraftforge.fml.common.Optional;
+
+@Optional.Interface(modid = LPConstants.ic2ModID, iface = "ic2.api.energy.tile.IEnergySink")
 public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergySink {
 
 	public static final int MAX_STORAGE = 40000000;
