@@ -9,15 +9,9 @@ import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
-import com.google.common.io.BaseEncoding;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.tree.AnnotationNode;
-import org.objectweb.asm.tree.ClassNode;
-
 import logisticspipes.LogisticsPipes;
 import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 import logisticspipes.proxy.opencomputers.asm.ClassCreator;
-import logisticspipes.utils.ModStatusHelper;
 
 public class LogisticsPipesClassInjector implements IClassTransformer {
 
