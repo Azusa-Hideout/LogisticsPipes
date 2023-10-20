@@ -46,8 +46,7 @@ public class LogicController {
 				}
 				if (connection.getTarget().getInputParameterType(connection.getTargetIndex()) != connection.getType()) {
 					connection.setInvalidConnection(true);
-					continue;
-				}
+                }
 
 			}
 		}
