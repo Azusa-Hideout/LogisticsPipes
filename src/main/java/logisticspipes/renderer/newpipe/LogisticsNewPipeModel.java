@@ -89,9 +89,7 @@ public class LogisticsNewPipeModel implements IModel {
 							return true;
 						}
 					}
-					if (rl.equals(LPBlocks.pipe.getRegistryName())) {
-						return true;
-					}
+                    return rl.equals(LPBlocks.pipe.getRegistryName());
 				}
 			}
 			return false;

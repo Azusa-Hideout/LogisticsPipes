@@ -122,12 +122,12 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
 			if (((LogisticsTileGenericPipe) tile).pipe instanceof FluidRoutedPipe) {
 				return false;
 			}
+
 			if (!flag) {
 				return false;
 			}
-			if (((LogisticsTileGenericPipe) tile).pipe == null || !(((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler)) {
-				return false;
-			}
+
+            return ((LogisticsTileGenericPipe) tile).pipe != null && ((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler;
 		}
 		return true;
 	}

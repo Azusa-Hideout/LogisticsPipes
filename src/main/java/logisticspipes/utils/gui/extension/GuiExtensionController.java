@@ -235,9 +235,7 @@ public class GuiExtensionController {
 				}
 			}
 		} else {
-			if (x + w > currentlyExtended.getCurrentXPos() && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth() + (side == GuiSide.RIGHT ? 15 : 0) && y + h > currentlyExtended.getCurrentYPos() && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
-				return true;
-			}
+            return x + w > currentlyExtended.getCurrentXPos() && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth() + (side == GuiSide.RIGHT ? 15 : 0) && y + h > currentlyExtended.getCurrentYPos() && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight();
 		}
 		return false;
 	}
