@@ -48,7 +48,6 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.interfaces.routing.IFilter;
@@ -677,27 +676,27 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node node() {
 		return node;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onConnect(Node node1) {}
 	//public int redstoneInput = 0;
 	//public int[] redstoneInputSide = new int[EnumFacing.VALUES.length];
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onDisconnect(Node node1) {}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onMessage(Message message) {}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Object[] invoke(String s, Context context, Arguments arguments) {
 		BaseWrapperClass object = (BaseWrapperClass) Objects.requireNonNull(CCObjectWrapper.getWrappedObject(pipe, BaseWrapperClass.WRAPPER), "wrapped object returned null in " + toString());
 		object.isDirectCall = true;
@@ -705,13 +704,13 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public String[] methods() {
 		return new String[] { "getPipe" };
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node sidedNode(EnumFacing side) {
 		if (this.getTile(side) instanceof LogisticsTileGenericPipe || this.getTile(side) instanceof LogisticsSolidTileEntity) {
 			return null;
@@ -722,7 +721,7 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public boolean canConnect(EnumFacing side) {
 		return !(this.getTile(side) instanceof LogisticsTileGenericPipe) && !(this.getTile(side) instanceof LogisticsSolidTileEntity);
 	}

@@ -252,21 +252,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
 		ClassReader reader = new ClassReader(bytes);
 		reader.accept(node, 0);
 		boolean changed = false;
-		List<MethodNode> methodsToRemove = new ArrayList<>();
 		for (MethodNode m : node.methods) {
 			if (m.visibleAnnotations != null) {
 				for (AnnotationNode a : m.visibleAnnotations) {
-					if (a.desc.equals("Llogisticspipes/asm/ModDependentMethod;")) {
-						if (a.values.size() == 2 && a.values.get(0).equals("modId")) {
-							String modId = a.values.get(1).toString();
-							if (!ModStatusHelper.isModLoaded(modId)) {
-								methodsToRemove.add(m);
-								break;
-							}
-						} else {
-							throw new UnsupportedOperationException("Can't parse the annotation correctly");
-						}
-					} else if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
+					if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
 						if (FMLCommonHandler.instance().getSide().equals(Side.SERVER)) {
 							m.instructions.clear();
 							m.localVariables.clear();
@@ -291,9 +280,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
 				}
 			}
 		}
-		for (MethodNode m : methodsToRemove) {
-			node.methods.remove(m);
-		}
 		List<FieldNode> fieldsToRemove = new ArrayList<>();
 		for (FieldNode f : node.fields) {
 			if (f.visibleAnnotations != null) {
@@ -315,7 +301,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
 		for (FieldNode f : fieldsToRemove) {
 			node.fields.remove(f);
 		}
-		if (!changed && methodsToRemove.isEmpty() && fieldsToRemove.isEmpty()) {
+		if (!changed && fieldsToRemove.isEmpty()) {
 			return bytes;
 		}
 		ClassWriter writer = new ClassWriter(0);

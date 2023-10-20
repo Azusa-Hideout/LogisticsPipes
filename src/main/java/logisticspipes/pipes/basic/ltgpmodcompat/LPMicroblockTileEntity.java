@@ -23,7 +23,6 @@ import mcmultipart.api.slot.IPartSlot;
 import mcmultipart.block.TileMultipartContainer;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.utils.ReflectionHelper;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPLTGPCompanion;
 
@@ -35,14 +34,14 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 
 	public abstract boolean isMultipartAllowedInPipe();
 
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public TileMultipartContainer getMultipartContainer() {
 		return (TileMultipartContainer) imcmpltgpCompanion.getMCMPTileEntity();
 	}
 
 	@Nonnull
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound tag = super.getUpdateTag();
 		if (this.getMultipartContainer() != null) tag.setTag("LogisticsPipes:MCMultiPartData", this.getMultipartContainer().getUpdateTag());
@@ -50,7 +49,7 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
 		super.handleUpdateTag(tag);
 		if (tag.hasKey("LogisticsPipes:MCMultiPartData")) {
@@ -59,7 +58,7 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		if (this.getMultipartContainer() != null) {
@@ -74,7 +73,7 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().onDataPacket(net, pkt);
 		if (pkt.getNbtCompound().hasKey("LogisticsPipes:SuperUpdatePacket")) {
@@ -84,7 +83,7 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 
 	@Nonnull
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
 		tag = super.writeToNBT(tag);
 		NBTTagCompound multiPartTag = new NBTTagCompound();
@@ -94,7 +93,7 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		if (tag.hasKey("MCMultiPartData")) {
@@ -103,56 +102,56 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void mirror(Mirror mirror) {
 		super.mirror(mirror);
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().mirror(mirror);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onLoad() {
 		super.onLoad();
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().onLoad();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onChunkUnload() {
 		super.onChunkUnload();
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().onChunkUnload();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void rotate(Rotation rotation) {
 		super.rotate(rotation);
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().rotate(rotation);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void setWorld(@Nonnull World world) {
 		super.setWorld(world);
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().setWorld(world);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	protected void setWorldCreate(World worldIn) {
 		super.setWorldCreate(worldIn);
 		if (this.getMultipartContainer() != null) ReflectionHelper.invokePrivateMethod(TileMultipartContainer.class, this.getMultipartContainer(), "setWorldCreate", "func_190201_b", new Class[] { World.class }, new Object[] { worldIn });
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void invalidate() {
 		super.invalidate();
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().invalidate();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean shouldRenderInPass(int pass) {
 		if (this.getMultipartContainer() == null) return super.shouldRenderInPass(pass);
 		return this.getMultipartContainer().shouldRenderInPass(pass) || super.shouldRenderInPass(pass);
@@ -166,21 +165,21 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	*/
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void updateContainingBlockInfo() {
 		super.updateContainingBlockInfo();
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().updateContainingBlockInfo();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void setPos(BlockPos pos) {
 		super.setPos(pos);
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().setPos(pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void validate() {
 		super.validate();
 		if (this.getMultipartContainer() != null) this.getMultipartContainer().validate();
@@ -189,28 +188,28 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	// IMultipartContainer implementation below
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Optional<IPartInfo> get(IPartSlot iPartSlot) {
 		if (this.getMultipartContainer() == null) return Optional.empty();
 		return getMultipartContainer().get(iPartSlot);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Optional<IBlockState> getState(IPartSlot slot) {
 		if (this.getMultipartContainer() == null) return Optional.empty();
 		return getMultipartContainer().getState(slot);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Map<IPartSlot, ? extends IPartInfo> getParts() {
 		if (this.getMultipartContainer() == null) return Collections.emptyMap();
 		return getMultipartContainer().getParts();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canAddPart(IPartSlot iPartSlot, IBlockState iBlockState, IMultipartTile iMultipartTile) {
 		if (this.getMultipartContainer() == null) return false;
 		if (!isMultipartAllowedInPipe()) return false;
@@ -218,14 +217,14 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public BlockPos getPartPos() {
 		if (this.getMultipartContainer() == null) return new BlockPos(0, 1, 0);
 		return getMultipartContainer().getPartPos();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canAddPart(IPartSlot slot, IBlockState state) {
 		if (this.getMultipartContainer() == null) return false;
 		if (!isMultipartAllowedInPipe()) return false;
@@ -233,28 +232,28 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Optional<IMultipart> getPart(IPartSlot slot) {
 		if (this.getMultipartContainer() == null) return Optional.empty();
 		return getMultipartContainer().getPart(slot);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public World getPartWorld() {
 		if (this.getMultipartContainer() == null) return this.getWorld();
 		return getMultipartContainer().getPartWorld();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Optional<IMultipartTile> getPartTile(IPartSlot slot) {
 		if (this.getMultipartContainer() == null) return Optional.empty();
 		return getMultipartContainer().getPartTile(slot);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void addPart(IPartSlot iPartSlot, IBlockState iBlockState, IMultipartTile iMultipartTile) {
 		if (this.getMultipartContainer() == null) return;
 		if (!isMultipartAllowedInPipe()) return;
@@ -262,21 +261,21 @@ public abstract class LPMicroblockTileEntity extends TileEntity implements IMult
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void removePart(IPartSlot iPartSlot) {
 		if (this.getMultipartContainer() == null) return;
 		getMultipartContainer().removePart(iPartSlot);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void notifyChange(IPartInfo part) {
 		if (this.getMultipartContainer() == null) return;
 		getMultipartContainer().notifyChange(part);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void addPart(IPartSlot slot, IBlockState state) {
 		if (this.getMultipartContainer() == null) return;
 		if (!isMultipartAllowedInPipe()) return;

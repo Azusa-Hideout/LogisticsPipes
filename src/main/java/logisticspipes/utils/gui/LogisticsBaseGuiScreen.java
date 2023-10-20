@@ -43,7 +43,6 @@ import org.lwjgl.opengl.GL11;
 
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IChainAddList;
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.PacketHandler;
@@ -584,19 +583,19 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.neiModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.neiModID)
 	public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui) {
 		return null;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.neiModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.neiModID)
 	public Iterable<Integer> getItemSpawnSlots(GuiContainer gui, @Nonnull ItemStack stack) {
 		return null;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.neiModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.neiModID)
 	public boolean handleDragNDrop(GuiContainer gui, int mouseX, int mouseY, @Nonnull ItemStack stack, int button) {
 		if (gui instanceof LogisticsBaseGuiScreen && gui.inventorySlots instanceof DummyContainer && !stack.isEmpty()) {
 			Slot result = null;
@@ -621,7 +620,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.neiModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.neiModID)
 	public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
 		if (gui instanceof LogisticsBaseGuiScreen) {
 			return ((LogisticsBaseGuiScreen) gui).extensionControllerRight.isOverPanel(x, y, w, h);

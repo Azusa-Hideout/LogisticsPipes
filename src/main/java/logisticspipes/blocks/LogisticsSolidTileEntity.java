@@ -25,7 +25,6 @@ import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPBlocks;
 import logisticspipes.LPConstants;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.RequestRotationPacket;
@@ -150,28 +149,28 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node node() {
 		return node;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onConnect(Node node1) {
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onDisconnect(Node node1) {
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public void onMessage(Message message) {
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Object[] invoke(String s, Context context, Arguments arguments) {
 		BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(this, BaseWrapperClass.WRAPPER);
 		object.isDirectCall = true;
@@ -179,13 +178,13 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public String[] methods() {
 		return new String[] { "getBlock" };
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node sidedNode(EnumFacing side) {
 		final NeighborTileEntity<TileEntity> neighbor = new WorldCoordinatesWrapper(this).getNeighbor(side);
 		if (neighbor == null || neighbor.isLogisticsPipe() || neighbor.getTileEntity() instanceof LogisticsSolidTileEntity) {
@@ -197,7 +196,7 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@ModDependentMethod(modId = LPConstants.openComputersModID)
+	@Optional.Method(modid = LPConstants.openComputersModID)
 	public boolean canConnect(EnumFacing side) {
 		final NeighborTileEntity<TileEntity> neighbor = new WorldCoordinatesWrapper(this).getNeighbor(side);
 		return neighbor != null && !neighbor.isLogisticsPipe() && !(neighbor.getTileEntity() instanceof LogisticsSolidTileEntity);

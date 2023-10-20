@@ -44,7 +44,6 @@ import logisticspipes.LPConstants;
 import logisticspipes.LPItems;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.config.Configs;
@@ -113,6 +112,9 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
+
+import net.minecraftforge.fml.common.Optional;
+
 import network.rs485.logisticspipes.connection.Adjacent;
 import network.rs485.logisticspipes.connection.AdjacentFactory;
 import network.rs485.logisticspipes.connection.NoAdjacent;
@@ -1394,7 +1396,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 	}
 
 	@CCCommand(description = "Returns the access to the pipe of the given router UUID")
-	@ModDependentMethod(modId = LPConstants.computerCraftModID)
+    @Optional.Method(modid = LPConstants.computerCraftModID)
 	@CCDirectCall
 	public Object getPipeForUUID(String sUuid) throws PermissionException {
 		if (!getUpgradeManager().hasCCRemoteControlUpgrade()) {

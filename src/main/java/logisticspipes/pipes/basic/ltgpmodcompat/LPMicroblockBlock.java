@@ -41,7 +41,6 @@ import mcmultipart.block.TileMultipartContainer;
 import org.apache.commons.lang3.tuple.Pair;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.proxy.SimpleServiceLocator;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPBlockAccess;
 
@@ -56,21 +55,21 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean getWeakChanges(IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getWeakChanges(world, pos) : super.getWeakChanges(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isFertile(@Nonnull World world, @Nonnull BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isFertile(world, pos) : super.isFertile(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material,
 			boolean testingHead) {
 		Block block = mcmpBlockAccess.getBlock();
@@ -78,14 +77,14 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isPassable(IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isPassable(world, pos) : super.isPassable(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onPlantGrow(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, BlockPos source) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -96,28 +95,28 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getStrongPower(state, world, pos, side) : super.getStrongPower(state, world, pos, side);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean getTickRandomly() {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getTickRandomly() : super.getTickRandomly();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public Boolean isAABBInsideMaterial(World world, BlockPos pos, AxisAlignedBB boundingBox, Material material) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isAABBInsideMaterial(world, pos, boundingBox, material) : super.isAABBInsideMaterial(world, pos, boundingBox, material);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -128,7 +127,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -139,14 +138,14 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean hasCustomBreakingProgress(IBlockState state) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.hasCustomBreakingProgress(state) : super.hasCustomBreakingProgress(state);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -157,28 +156,28 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isBurning(IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isBurning(world, pos) : super.isBurning(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.canSustainLeaves(state, world, pos) : super.canSustainLeaves(state, world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getComparatorInputOverride(blockState, world, pos) : super.getComparatorInputOverride(blockState, world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void randomTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -189,28 +188,28 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isSideSolid(state, world, pos, side) : super.isSideSolid(state, world, pos, side);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getLightOpacity(state, world, pos) : super.getLightOpacity(state, world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public float getEnchantPowerBonus(World world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getEnchantPowerBonus(world, pos) : super.getEnchantPowerBonus(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isLadder(state, world, pos, entity) : super.isLadder(state, world, pos, entity);
@@ -218,28 +217,28 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 
 	@Nonnull
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getBlockFaceShape(world, state, pos, face) : super.getBlockFaceShape(world, state, pos, face);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isLeaves(state, world, pos) : super.isLeaves(state, world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getExplosionResistance(world, pos, exploder, explosion) : super.getExplosionResistance(world, pos, exploder, explosion);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -250,28 +249,28 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getLightValue(state, world, pos) : super.getLightValue(state, world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isFoliage(IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isFoliage(world, pos) : super.isFoliage(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.canConnectRedstone(state, world, pos, side) : super.canConnectRedstone(state, world, pos, side);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void fillWithRain(World world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -282,56 +281,56 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isBeaconBase(IBlockAccess world, BlockPos pos, BlockPos beacon) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isBeaconBase(world, pos, beacon) : super.isBeaconBase(world, pos, beacon);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isFlammable(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing face) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isFlammable(world, pos, face) : super.isFlammable(world, pos, face);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.getWeakPower(state, world, pos, side) : super.getWeakPower(state, world, pos, side);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.canSustainPlant(state, world, pos, direction, plantable) : super.canSustainPlant(state, world, pos, direction, plantable);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isWood(IBlockAccess world, BlockPos pos) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isWood(world, pos) : super.isWood(world, pos);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean canCreatureSpawn(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EntityLiving.SpawnPlacementType type) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.canCreatureSpawn(state, world, pos, type) : super.canCreatureSpawn(state, world, pos, type);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
 		Block block = mcmpBlockAccess.getBlock();
 		return block != null ? block.isFireSource(world, pos, side) : super.isFireSource(world, pos, side);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 		Block block = mcmpBlockAccess.getBlock();
 		if (block != null) {
@@ -342,7 +341,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
 		Pair<Vec3d, Vec3d> vectors = RayTraceHelper.getRayTraceVectors(player);
 		RayTraceResult hit = collisionRayTrace(state, world, pos, vectors.getLeft(), vectors.getRight());
@@ -372,7 +371,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public float getPlayerRelativeBlockHardness(IBlockState state, @Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos) {
 		Pair<Vec3d, Vec3d> vectors = RayTraceHelper.getRayTraceVectors(player);
 		RayTraceResult hit = collisionRayTrace(getDefaultState(), world, pos, vectors.getLeft(), vectors.getRight());
@@ -388,7 +387,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
 		Pair<Vec3d, Vec3d> vectors = RayTraceHelper.getRayTraceVectors(MCMultiPart.proxy.getPlayer());
 		RayTraceResult hit = collisionRayTrace(getDefaultState(), world, pos, vectors.getLeft(), vectors.getRight());
@@ -416,7 +415,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean addHitEffects(IBlockState mpState, World world, RayTraceResult hit, ParticleManager manager) {
 		if (hit != null && hit.subHit >= 0) {
 			BlockPos pos = hit.getBlockPos();
@@ -461,7 +460,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 
 	@Nonnull
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult hit, World world, BlockPos pos, EntityPlayer player) {
 		if (hit != null && hit.subHit >= 0) {
 			return getTile(world, pos).map(t -> t.get(MCMultiPart.slotRegistry.getValue(hit.subHit))).filter(Optional::isPresent)
@@ -471,7 +470,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX,
 			float hitY, float hitZ) {
 		Pair<Vec3d, Vec3d> vectors = RayTraceHelper.getRayTraceVectors(player);
@@ -484,7 +483,7 @@ public abstract class LPMicroblockBlock extends BlockContainer implements IMulti
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.mcmpModID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = LPConstants.mcmpModID)
 	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
 		Pair<Vec3d, Vec3d> vectors = RayTraceHelper.getRayTraceVectors(player);
 		RayTraceResult hit = collisionRayTrace(getDefaultState(), world, pos, vectors.getLeft(), vectors.getRight());

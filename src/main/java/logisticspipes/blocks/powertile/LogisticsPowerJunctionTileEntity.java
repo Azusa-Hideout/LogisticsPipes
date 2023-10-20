@@ -22,7 +22,6 @@ import ic2.api.energy.tile.IEnergySink;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.hud.HUDPowerLevel;
@@ -362,7 +361,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity i
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public boolean acceptsEnergyFrom(IEnergyEmitter tile, EnumFacing dir) {
 		return true;
 	}
@@ -376,7 +375,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity i
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public double getDemandedEnergy() {
 		if (!addedToEnergyNet) {
 			return 0;
@@ -387,7 +386,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity i
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
 		internalBuffer += amount * LogisticsPowerJunctionTileEntity.IC2Multiplier;
 		transferFromIC2Buffer();
@@ -395,7 +394,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity i
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public int getSinkTier() {
 		return Integer.MAX_VALUE;
 	}

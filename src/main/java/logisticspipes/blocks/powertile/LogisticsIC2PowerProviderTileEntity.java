@@ -7,7 +7,6 @@ import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -129,25 +128,25 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public boolean acceptsEnergyFrom(IEnergyEmitter tile, EnumFacing dir) {
 		return true;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public double getDemandedEnergy() {
 		return freeSpace();
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public int getSinkTier() {
 		return Integer.MAX_VALUE;
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.ic2ModID)
+	@Optional.Method(modid = LPConstants.ic2ModID)
 	public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
 		addEnergy(amount);
 		return 0;

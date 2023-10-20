@@ -10,7 +10,6 @@ import cofh.thermaldynamics.duct.tiles.IDuctHolder;
 import cofh.thermaldynamics.multiblock.MultiBlockGrid;
 
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.proxy.td.subproxies.ITDPart;
 
 import net.minecraftforge.fml.common.Optional;
@@ -22,19 +21,19 @@ public abstract class LPDuctHolderTileEntity extends LPMicroblockTileEntity impl
 
 	@Nullable
 	@Override
-	@ModDependentMethod(modId = LPConstants.thermalDynamicsModID)
+	@Optional.Method(modid = LPConstants.thermalDynamicsModID)
 	public <T extends DuctUnit<T, G, C>, G extends MultiBlockGrid<T>, C> T getDuct(DuctToken<T, G, C> ductToken) {
 		return ((IDuctHolder) tdPart.getInternalDuct()).getDuct(ductToken);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.thermalDynamicsModID)
+	@Optional.Method(modid = LPConstants.thermalDynamicsModID)
 	public boolean isSideBlocked(int i) {
 		return tdPart.isLPSideBlocked(i);
 	}
 
 	@Override
-	@ModDependentMethod(modId = LPConstants.thermalDynamicsModID)
+	@Optional.Method(modid = LPConstants.thermalDynamicsModID)
 	public void setPos(BlockPos pos) {
 		super.setPos(pos);
 		tdPart.setPos(pos);
