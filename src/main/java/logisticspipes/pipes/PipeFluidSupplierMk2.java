@@ -199,12 +199,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 				}
 
 				if (success) {
-					Integer currentRequest = _requestedItems.get(need);
-					if (currentRequest == null) {
-						_requestedItems.put(need, countToRequest);
-					} else {
-						_requestedItems.put(need, currentRequest + countToRequest);
-					}
+                    _requestedItems.merge(need, countToRequest, Integer::sum);
 				} else {
 					setRequestFailed(true);
 				}
