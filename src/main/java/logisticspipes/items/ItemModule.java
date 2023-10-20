@@ -24,9 +24,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import logisticspipes.LPInfos;
+
 import org.lwjgl.input.Keyboard;
 
-import logisticspipes.LPConstants;
 import logisticspipes.LPItems;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IPipeServiceProvider;
@@ -114,7 +115,7 @@ public class ItemModule extends LogisticsItem {
 
 	public static void registerModule(IForgeRegistry<Item> registry, String name,
 			@Nonnull Supplier<? extends LogisticsModule> moduleConstructor) {
-		registerModule(registry, name, moduleConstructor, LPConstants.LP_MOD_ID);
+		registerModule(registry, name, moduleConstructor, LPInfos.MOD_ID);
 	}
 
 	public static void registerModule(IForgeRegistry<Item> registry, String name,

@@ -37,8 +37,8 @@
 
 package network.rs485.logisticspipes.compat
 
+import logisticspipes.LPInfos
 import io.netty.buffer.ByteBuf
-import logisticspipes.LPConstants
 import logisticspipes.LogisticsPipes
 import logisticspipes.modules.*
 import logisticspipes.pipes.*
@@ -104,7 +104,7 @@ class TheOneProbeIntegration : Function<ITheOneProbe, Void?> {
 
     private inner class PipeInfoProvider : IProbeInfoProvider {
 
-        override fun getID(): String = "${LPConstants.LP_MOD_ID}:pipe_info_provider"
+        override fun getID(): String = "${LPInfos.MOD_ID}:pipe_info_provider"
 
         override fun addProbeInfo(
             mode: ProbeMode,

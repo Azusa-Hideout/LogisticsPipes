@@ -37,10 +37,10 @@
 
 package network.rs485.logisticspipes.guidebook
 
+import logisticspipes.LPInfos
 import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.YamlException
 import kotlinx.serialization.Serializable
-import logisticspipes.LPConstants
 import logisticspipes.LogisticsPipes
 import net.minecraft.client.Minecraft
 import net.minecraft.item.Item
@@ -98,7 +98,7 @@ private val metadataRegex = "^\\s*<!---\\s*\\n(.*?)\\n\\s*--->\\s*(.*)$".toRegex
 fun loadPage(path: String, lang: String): PageInfoProvider {
     val resolvedLocation = resolveAbsoluteLocation(resolvedLocation = Paths.get(path), language = lang).toLocation(false)
     return try {
-        val bookFile = Minecraft.getMinecraft().resourceManager.getResource(ResourceLocation(LPConstants.LP_MOD_ID, resolvedLocation))
+        val bookFile = Minecraft.getMinecraft().resourceManager.getResource(ResourceLocation(LPInfos.MOD_ID, resolvedLocation))
         LoadedPage(
             fileLocation = path,
             language = lang,
@@ -217,7 +217,7 @@ interface PageInfoProvider {
     fun resolveResource(location: String): ResourceLocation =
         location.lastIndexOf(':').let { idx ->
             val resourceDomain = when (idx) {
-                -1 -> LPConstants.LP_MOD_ID
+                -1 -> LPInfos.MOD_ID
                 else -> location.substring(0 until idx)
             }
             var resourcePath: String = ((idx + 1)..location.lastIndex).let { if (it.isEmpty()) "" else location.substring(it) }

@@ -211,8 +211,8 @@ import network.rs485.util.SystemUtilKt;
 //CHECKSTYLE:OFF
 
 @Mod(
-		name = "Logistics Pipes",
-		modid = LPConstants.LP_MOD_ID,
+		name = LPInfos.MOD_NAME,
+		modid = LPInfos.MOD_ID,
 		useMetadata = true)
 public class LogisticsPipes {
 	//@formatter:on
@@ -225,13 +225,6 @@ public class LogisticsPipes {
 	public static boolean isDEBUG() {
 		return DEBUG;
 	}
-
-	@Getter
-	private static String VERSION = UNKNOWN;
-	@Getter
-	private static String VENDOR = UNKNOWN;
-	@Getter
-	private static String TARGET = UNKNOWN;
 
 	public LogisticsPipes() { //TODO: remove throws
 		final LaunchClassLoader loader = Launch.classLoader;
@@ -274,9 +267,6 @@ public class LogisticsPipes {
 				foundLp = "LogisticsPipes".equals(manifest.getMainAttributes().getValue("Specification-Title"));
 				if (foundLp) {
 					LogisticsPipes.DEBUG = false;
-					LogisticsPipes.VERSION = manifest.getMainAttributes().getValue("Implementation-Version");
-					LogisticsPipes.VENDOR = manifest.getMainAttributes().getValue("Implementation-Vendor");
-					LogisticsPipes.TARGET = manifest.getMainAttributes().getValue("Implementation-Target");
 				}
 			} while (resources.hasMoreElements() && !foundLp);
 		} catch (IOException e) {
@@ -289,10 +279,9 @@ public class LogisticsPipes {
 
 	public static String getVersionString() {
 		return Stream.of(
-				"Logistics Pipes " + LogisticsPipes.VERSION,
+				"Logistics Pipes " + LPInfos.VERSION,
 				LogisticsPipes.DEBUG ? "debug mode" : "",
-				"target " + LogisticsPipes.TARGET,
-				"vendor " + LogisticsPipes.VENDOR)
+				"target Forge 1.12.2")
 				.filter(str -> !str.isEmpty())
 				.collect(Collectors.joining(", "));
 	}
@@ -447,9 +436,6 @@ public class LogisticsPipes {
 		ProxyManager.load();
 		Configs.load();
 
-		if (LogisticsPipes.UNKNOWN.equals(LogisticsPipes.VERSION)) {
-			LogisticsPipes.log.warn("Could not determine Logistics Pipes version, we do need that " + JarFile.MANIFEST_NAME + ", don't you know?");
-		}
 		LogisticsPipes.log.info("Running " + getVersionString());
 
 		SimpleServiceLocator.setPipeInformationManager(new PipeInformationManager());
@@ -491,15 +477,15 @@ public class LogisticsPipes {
 		//SimpleServiceLocator.machineProgressProvider.registerProgressProvider(LogisticsWrapperHandler.getWrappedProgressProvider("EnderIO", "Generic", EnderIOProgressProvider.class));
 		SimpleServiceLocator.machineProgressProvider.registerProgressProvider(LogisticsWrapperHandler.getWrappedProgressProvider(LPConstants.enderCoreModID, "Generic", EnderCoreProgressProvider.class));
 
-		GameRegistry.registerTileEntity(LogisticsPowerJunctionTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "power_junction"));
-		GameRegistry.registerTileEntity(LogisticsRFPowerProviderTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "power_provider_rf"));
-		GameRegistry.registerTileEntity(LogisticsIC2PowerProviderTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "power_provider_ic2"));
-		GameRegistry.registerTileEntity(LogisticsSecurityTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "security_station"));
-		GameRegistry.registerTileEntity(LogisticsCraftingTableTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "logistics_crafting_table"));
-		GameRegistry.registerTileEntity(LogisticsTileGenericPipe.class, new ResourceLocation(LPConstants.LP_MOD_ID, "pipe"));
-		GameRegistry.registerTileEntity(LogisticsStatisticsTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "statistics_table"));
-		GameRegistry.registerTileEntity(LogisticsProgramCompilerTileEntity.class, new ResourceLocation(LPConstants.LP_MOD_ID, "program_compiler"));
-		GameRegistry.registerTileEntity(LogisticsTileGenericSubMultiBlock.class, new ResourceLocation(LPConstants.LP_MOD_ID, "submultiblock"));
+		GameRegistry.registerTileEntity(LogisticsPowerJunctionTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "power_junction"));
+		GameRegistry.registerTileEntity(LogisticsRFPowerProviderTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "power_provider_rf"));
+		GameRegistry.registerTileEntity(LogisticsIC2PowerProviderTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "power_provider_ic2"));
+		GameRegistry.registerTileEntity(LogisticsSecurityTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "security_station"));
+		GameRegistry.registerTileEntity(LogisticsCraftingTableTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "logistics_crafting_table"));
+		GameRegistry.registerTileEntity(LogisticsTileGenericPipe.class, new ResourceLocation(LPInfos.MOD_ID, "pipe"));
+		GameRegistry.registerTileEntity(LogisticsStatisticsTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "statistics_table"));
+		GameRegistry.registerTileEntity(LogisticsProgramCompilerTileEntity.class, new ResourceLocation(LPInfos.MOD_ID, "program_compiler"));
+		GameRegistry.registerTileEntity(LogisticsTileGenericSubMultiBlock.class, new ResourceLocation(LPInfos.MOD_ID, "submultiblock"));
 
 		MainProxy.proxy.registerTileEntities();
 
@@ -565,7 +551,7 @@ public class LogisticsPipes {
 
 	// TODO move somewhere
 	public static <T extends Item> T setName(T item, String name) {
-		return setName(item, name, LPConstants.LP_MOD_ID);
+		return setName(item, name, LPInfos.MOD_ID);
 	}
 
 	public static <T extends Item> T setName(T item, String name, String modID) {
@@ -576,8 +562,8 @@ public class LogisticsPipes {
 
 	// TODO move somewhere
 	public static <T extends Block> T setName(T block, String name) {
-		block.setRegistryName(LPConstants.LP_MOD_ID, name);
-		block.setTranslationKey(String.format("%s.%s", LPConstants.LP_MOD_ID, name));
+		block.setRegistryName(LPInfos.MOD_ID, name);
+		block.setTranslationKey(String.format("%s.%s", LPInfos.MOD_ID, name));
 		return block;
 	}
 
@@ -741,12 +727,12 @@ public class LogisticsPipes {
 
 		ItemStack output = new ItemStack(toItem, 1, 0);
 
-		ResourceLocation baseLoc = new ResourceLocation(LPConstants.LP_MOD_ID, fromItem.getRegistryName().getPath() + ".resetrecipe");
+		ResourceLocation baseLoc = new ResourceLocation(LPInfos.MOD_ID, fromItem.getRegistryName().getPath() + ".resetrecipe");
 		ResourceLocation recipeLoc = baseLoc;
 		int index = 0;
 		while (CraftingManager.REGISTRY.containsKey(recipeLoc)) {
 			index++;
-			recipeLoc = new ResourceLocation(LPConstants.LP_MOD_ID, baseLoc.getPath() + "_" + index);
+			recipeLoc = new ResourceLocation(LPInfos.MOD_ID, baseLoc.getPath() + "_" + index);
 		}
 
 		ShapelessRecipes recipe = new ShapelessRecipes("logisticspipes.resetrecipe.pipe", output, list);

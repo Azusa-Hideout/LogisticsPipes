@@ -14,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldSavedData;
 
-import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.interfaces.routing.IChannelManager;
 import logisticspipes.network.PacketHandler;
@@ -23,10 +22,11 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.PlayerIdentifier;
+import logisticspipes.LPInfos;
 
 public class ChannelManager implements IChannelManager {
 
-	private static final String DATA_NAME = LPConstants.LP_MOD_ID + "_ChannelManager_SavedData";
+	private static final String DATA_NAME = LPInfos.MOD_ID + "_ChannelManager_SavedData";
 	private SavedData savedData;
 
 	public ChannelManager(@Nonnull World world) {

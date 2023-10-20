@@ -65,6 +65,7 @@ import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.LPInfos;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy implements IProxy {
@@ -252,7 +253,7 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void registerModels() {
 		ForgeRegistries.ITEMS.getValuesCollection().stream()
-				.filter(item -> item.getRegistryName().getNamespace().equals(LPConstants.LP_MOD_ID))
+				.filter(item -> item.getRegistryName().getNamespace().equals(LPInfos.MOD_ID))
 				.filter(item -> item instanceof ILogisticsItem)
 				.forEach(item -> registerModels((ILogisticsItem) item));
 	}

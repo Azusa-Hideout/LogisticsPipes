@@ -20,7 +20,9 @@ import com.google.gson.internal.LinkedTreeMap;
 import lombok.Data;
 
 import logisticspipes.LogisticsPipes;
+import logisticspipes.LPInfos;
 
+// TODO remove or repurpose
 public final class VersionChecker implements Callable<VersionChecker.VersionInfo> {
 
 	public static final int COMMIT_MAX_LINE_LENGTH = 60;
@@ -89,12 +91,8 @@ public final class VersionChecker implements Callable<VersionChecker.VersionInfo
 
 	@Override
 	public VersionInfo call() throws Exception {
-		if (LogisticsPipes.UNKNOWN.equals(LogisticsPipes.getVERSION())) {
-			return null;
-		}
-
 		VersionInfo versionInfo = new VersionInfo();
-		URL url = new URL(String.format("http://rs485.network/version?VERSION=%s:%b", LogisticsPipes.getVERSION(), LogisticsPipes.isDEBUG()));
+		URL url = new URL(String.format("http://rs485.network/version?VERSION=%s:%b", LPInfos.VERSION, LogisticsPipes.isDEBUG()));
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		InputStream inputStream = (InputStream) conn.getContent();
 		String jsonString;
@@ -163,7 +161,7 @@ public final class VersionChecker implements Callable<VersionChecker.VersionInfo
 	private void sendIMCOutdatedMessage(VersionInfo versionInfo) {
 		if (Loader.isModLoaded("VersionChecker")) {
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString("oldVersion", LogisticsPipes.getVERSION());
+			tag.setString("oldVersion", LPInfos.VERSION);
 			tag.setString("newVersion", versionInfo.getNewestBuild());
 			tag.setString("updateUrl", "http://ci.rs485.network/view/Logistics%20Pipes/");
 			tag.setBoolean("isDirectLink", false);

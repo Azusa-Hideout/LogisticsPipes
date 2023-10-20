@@ -315,7 +315,7 @@ public class LogisticsEventListener {
 	@SubscribeEvent
 	public void onItemCrafting(PlayerEvent.ItemCraftedEvent event) {
 		if (event.player.isServerWorld() && !event.crafting.isEmpty()) {
-			if (event.crafting.getItem().getRegistryName().getNamespace().equals(LPConstants.LP_MOD_ID)) {
+			if (event.crafting.getItem().getRegistryName().getNamespace().equals(LPInfos.MOD_ID)) {
 				PlayerIdentifier identifier = PlayerIdentifier.get(event.player);
 				PlayerConfiguration config = LogisticsPipes.getServerConfigManager().getPlayerConfiguration(identifier);
 				if (!config.getHasCraftedLPItem() && !LogisticsPipes.isDEBUG()) {

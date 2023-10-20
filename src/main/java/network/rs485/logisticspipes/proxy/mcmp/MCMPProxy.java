@@ -59,10 +59,10 @@ import mcmultipart.client.ModelMultipartContainer;
 import mcmultipart.multipart.PartInfo;
 
 import logisticspipes.LPBlocks;
-import logisticspipes.LPConstants;
 import logisticspipes.asm.mcmp.MCMPHooks;
 import logisticspipes.modplugins.mcmp.LPPipeMultipart;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.LPInfos;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPBlockAccess;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPLTGPCompanion;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.LPTileMultipartContainer;
@@ -108,7 +108,7 @@ public class MCMPProxy implements IMCMPProxy {
 
 	@Override
 	public void registerTileEntities() {
-		GameRegistry.registerTileEntity(LPTileMultipartContainer.class, new ResourceLocation(LPConstants.LP_MOD_ID, "mcmp_lp_tile_multipart_container"));
+		GameRegistry.registerTileEntity(LPTileMultipartContainer.class, new ResourceLocation(LPInfos.MOD_ID, "mcmp_lp_tile_multipart_container"));
 	}
 
 	@Override

@@ -27,8 +27,8 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import logisticspipes.LPConstants;
 import logisticspipes.items.RemoteOrderer;
+import logisticspipes.LPInfos;
 
 public class RecipeManager {
 
@@ -107,7 +107,7 @@ public class RecipeManager {
 			//			System.arraycopy(objects, 1, indices, 0, indices.length);
 			//			dumpRecipe(stack, objects[0], indices);
 
-			GameData.register_impl(new ShapedOreRecipe(new ResourceLocation(LPConstants.LP_MOD_ID, "group.mainRecipeGroup"), stack, result.toArray()).setRegistryName(getFreeRecipeResourceLocation(stack)));
+			GameData.register_impl(new ShapedOreRecipe(new ResourceLocation(LPInfos.MOD_ID, "group.mainRecipeGroup"), stack, result.toArray()).setRegistryName(getFreeRecipeResourceLocation(stack)));
 		}
 
 		private void dumpRecipe(@Nonnull ItemStack result, Object layout, RecipeIndex... indices) {
@@ -187,7 +187,7 @@ public class RecipeManager {
 		}
 
 		public void addShapelessRecipe(@Nonnull ItemStack stack, Object... objects) {
-			GameData.register_impl(new ShapelessOreRecipe(new ResourceLocation(LPConstants.LP_MOD_ID, "group.mainRecipeGroup"), stack, objects).setRegistryName(getFreeRecipeResourceLocation(stack)));
+			GameData.register_impl(new ShapelessOreRecipe(new ResourceLocation(LPInfos.MOD_ID, "group.mainRecipeGroup"), stack, objects).setRegistryName(getFreeRecipeResourceLocation(stack)));
 		}
 
 		public void addShapelessResetRecipe(Item item, int meta) {
@@ -199,7 +199,7 @@ public class RecipeManager {
 		public static class ShapelessOrdererRecipe extends ShapelessOreRecipe {
 
 			public ShapelessOrdererRecipe(ResourceLocation registryName, @Nonnull ItemStack result, Object... recipe) {
-				super(new ResourceLocation(LPConstants.LP_MOD_ID, "group.mainRecipeGroup"), result, recipe);
+				super(new ResourceLocation(LPInfos.MOD_ID, "group.mainRecipeGroup"), result, recipe);
 				setRegistryName(registryName);
 			}
 
@@ -224,12 +224,12 @@ public class RecipeManager {
 	}
 
 	private static ResourceLocation getFreeRecipeResourceLocation(Item item) {
-		ResourceLocation baseLoc = new ResourceLocation(LPConstants.LP_MOD_ID, item.getRegistryName().getPath());
+		ResourceLocation baseLoc = new ResourceLocation(LPInfos.MOD_ID, item.getRegistryName().getPath());
 		ResourceLocation recipeLoc = baseLoc;
 		int index = 0;
 		while (CraftingManager.REGISTRY.containsKey(recipeLoc)) {
 			index++;
-			recipeLoc = new ResourceLocation(LPConstants.LP_MOD_ID, baseLoc.getPath() + "_" + index);
+			recipeLoc = new ResourceLocation(LPInfos.MOD_ID, baseLoc.getPath() + "_" + index);
 		}
 		return recipeLoc;
 	}

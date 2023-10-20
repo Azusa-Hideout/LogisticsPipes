@@ -37,6 +37,7 @@
 
 package network.rs485.logisticspipes.gui
 
+import logisticspipes.LPInfos
 import network.rs485.logisticspipes.gui.font.LPFontRenderer
 import network.rs485.logisticspipes.gui.guidebook.Screen
 import network.rs485.logisticspipes.gui.guidebook.x
@@ -49,7 +50,6 @@ import network.rs485.logisticspipes.util.Rectangle
 import network.rs485.logisticspipes.util.math.BorderedRectangle
 import network.rs485.logisticspipes.util.math.MutableRectangle
 import network.rs485.markdown.defaultDrawableState
-import logisticspipes.LPConstants
 import logisticspipes.utils.Color
 import logisticspipes.utils.MinecraftColor
 import org.lwjgl.opengl.GL11
@@ -74,13 +74,13 @@ object GuiDrawer {
     private const val BORDER: Int = 4
     private const val NORMAL_SLOT_SIZE = 18
 
-    private val guiAtlas = Texture(ResourceLocation(LPConstants.LP_MOD_ID, "textures/gui/gui.png"), 256)
+    private val guiAtlas = Texture(ResourceLocation(LPInfos.MOD_ID, "textures/gui/gui.png"), 256)
     private val guiNormalPatternTexture =
-        Texture(ResourceLocation(LPConstants.LP_MOD_ID, "textures/gui/normal.png"), 64)
-    private val guiLightPattern = Texture(ResourceLocation(LPConstants.LP_MOD_ID, "textures/gui/light.png"), 64)
-    private val guiHoveredPatternTexture = Texture(ResourceLocation(LPConstants.LP_MOD_ID, "textures/gui/blue.png"), 64)
+        Texture(ResourceLocation(LPInfos.MOD_ID, "textures/gui/normal.png"), 64)
+    private val guiLightPattern = Texture(ResourceLocation(LPInfos.MOD_ID, "textures/gui/light.png"), 64)
+    private val guiHoveredPatternTexture = Texture(ResourceLocation(LPInfos.MOD_ID, "textures/gui/blue.png"), 64)
 
-    private val guiDarkPatternTexture = Texture(ResourceLocation(LPConstants.LP_MOD_ID, "textures/gui/dark.png"), 64)
+    private val guiDarkPatternTexture = Texture(ResourceLocation(LPInfos.MOD_ID, "textures/gui/dark.png"), 64)
 
     private var currentTexture: Texture = guiAtlas
 

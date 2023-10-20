@@ -20,8 +20,8 @@ import mcmultipart.api.multipart.IMultipartTile;
 import mcmultipart.api.ref.MCMPCapabilities;
 
 import logisticspipes.LPBlocks;
-import logisticspipes.LPConstants;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.LPInfos;
 
 @MCMPAddon
 public class LPMCMPAddon implements IMCMPAddon {
@@ -38,7 +38,7 @@ public class LPMCMPAddon implements IMCMPAddon {
 	public void attachCapability(AttachCapabilitiesEvent<TileEntity> e) {
 		final TileEntity tile = e.getObject();
 		if (tile instanceof LogisticsTileGenericPipe) {
-			e.addCapability(new ResourceLocation(LPConstants.LP_MOD_ID, "mcmpaddon.cap"), new ICapabilityProvider() {
+			e.addCapability(new ResourceLocation(LPInfos.MOD_ID, "mcmpaddon.cap"), new ICapabilityProvider() {
 
 				@Override
 				public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import com.google.common.collect.ImmutableMap;
 
-import logisticspipes.LPConstants;
+import logisticspipes.LPInfos;
 
 public class MissingMappingHandler {
 
@@ -143,7 +143,7 @@ public class MissingMappingHandler {
 		for (RegistryEvent.MissingMappings.Mapping<Block> m : e.getMappings()) {
 			String entry = blockIDMap.get(m.key.getPath());
 			if (entry == null) continue;
-			Block value = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(LPConstants.LP_MOD_ID, entry));
+			Block value = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(LPInfos.MOD_ID, entry));
 			if (value == null) continue;
 			m.remap(value);
 		}
@@ -159,7 +159,7 @@ public class MissingMappingHandler {
 			}
 			String entry = itemIDMap.get(old);
 			if (entry == null) continue;
-			Item value = ForgeRegistries.ITEMS.getValue(new ResourceLocation(LPConstants.LP_MOD_ID, entry));
+			Item value = ForgeRegistries.ITEMS.getValue(new ResourceLocation(LPInfos.MOD_ID, entry));
 			if (value == null) continue;
 			m.remap(value);
 		}
