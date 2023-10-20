@@ -23,7 +23,7 @@ public class DictItemIdentifier {
 		boolean hasDict = false;
 		final ItemStack stack = itemIdent.unsafeMakeNormalStack(1);
 		if (stack.isEmpty()) {
-			LogisticsPipes.log.error("Cannot make stack from item " + itemIdent.toString() + " -- item creates and empty stack!");
+			LogisticsPipes.log.error("Cannot make stack from item " + itemIdent + " -- item creates and empty stack!");
 			return null;
 		}
 		for (int oreId : OreDictionary.getOreIDs(stack)) {
@@ -78,6 +78,6 @@ public class DictItemIdentifier {
 			first = false;
 		}
 		builder.append("]");
-		System.out.println(builder.toString());
+		System.out.println(builder);
 	}
 }

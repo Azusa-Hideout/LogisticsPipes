@@ -694,7 +694,7 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 	@Override
 	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Object[] invoke(String s, Context context, Arguments arguments) {
-		BaseWrapperClass object = (BaseWrapperClass) Objects.requireNonNull(CCObjectWrapper.getWrappedObject(pipe, BaseWrapperClass.WRAPPER), "wrapped object returned null in " + toString());
+		BaseWrapperClass object = (BaseWrapperClass) Objects.requireNonNull(CCObjectWrapper.getWrappedObject(pipe, BaseWrapperClass.WRAPPER), "wrapped object returned null in " + this);
 		object.isDirectCall = true;
 		return CCObjectWrapper.createArray(object);
 	}
@@ -731,7 +731,7 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 		blockType = getBlockType();
 
 		if (pipe == null) {
-			LogisticsPipes.log.warn("Pipe failed to initialize at " + getPos().toString() + ", deleting");
+			LogisticsPipes.log.warn("Pipe failed to initialize at " + getPos() + ", deleting");
 			world.setBlockToAir(getPos());
 			return;
 		}

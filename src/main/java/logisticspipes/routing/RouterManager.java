@@ -296,6 +296,6 @@ public class RouterManager implements IChannelConnectionManager, ISecurityStatio
 	}
 
 	public void printAllRouters() {
-		_routersServer.stream().filter(router -> router != null).forEach(router -> System.out.println(router.toString()));
+		_routersServer.stream().filter(router -> router != null).forEach(router -> System.out.println(router));
 	}
 }

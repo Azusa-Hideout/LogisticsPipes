@@ -222,7 +222,7 @@ public class GuiPipeController extends LogisticsBaseTabGuiScreen {
 				fontRenderer.drawString("Id: ", 10, 68, Color.getValue(Color.DARKER_GREY), false);
 				GL11.glTranslated(10, 80, 0);
 				GL11.glScaled(0.75D, 0.75D, 1.0D);
-				fontRenderer.drawString(ChatColor.BLUE.toString() + id.toString(), 0, 0, Color.getValue(Color.DARKER_GREY), false);
+				fontRenderer.drawString(ChatColor.BLUE + id.toString(), 0, 0, Color.getValue(Color.DARKER_GREY), false);
 				GL11.glScaled(1 / 0.75D, 1 / 0.75D, 1.0D);
 				GL11.glTranslated(-10, -80, 0);
 				fontRenderer.drawString("Authorization: " + (SimpleServiceLocator.securityStationManager.isAuthorized(id) ? ChatColor.GREEN + "Authorized" : ChatColor.RED + "Unauthorized"), 10, 94, Color.getValue(Color.DARKER_GREY), false);

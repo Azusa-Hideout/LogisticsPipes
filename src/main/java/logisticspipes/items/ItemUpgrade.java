@@ -120,7 +120,7 @@ public class ItemUpgrade extends LogisticsItem {
 	@Nonnull
 	public static Item getAndCheckUpgrade(ResourceLocation resource) {
 		Objects.requireNonNull(resource, "Resource for upgrade is null. Was the upgrade registered?");
-		return Objects.requireNonNull(Item.REGISTRY.getObject(resource), "Upgrade " + resource.toString() + " not found in Item registry");
+		return Objects.requireNonNull(Item.REGISTRY.getObject(resource), "Upgrade " + resource + " not found in Item registry");
 	}
 
 	public static void registerUpgrade(IForgeRegistry<Item> registry, String name, Supplier<? extends IPipeUpgrade> upgradeConstructor) {
