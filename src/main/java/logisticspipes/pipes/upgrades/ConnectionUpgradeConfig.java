@@ -34,9 +34,9 @@ public class ConnectionUpgradeConfig implements IConfigPipeUpgrade {
 		EAST(EnumFacing.EAST, "LPDIS-EAST"),
 		WEST(EnumFacing.WEST, "LPDIS-WEST");
 		@Getter
-		private EnumFacing dir;
+		private final EnumFacing dir;
 		@Getter
-		private String lpName;
+		private final String lpName;
 
 		public static String getNameForDirection(EnumFacing fd) {
 			Optional<Sides> opt = Arrays.stream(values()).filter(side -> side.getDir() == fd).findFirst();

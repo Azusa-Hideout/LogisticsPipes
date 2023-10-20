@@ -348,11 +348,11 @@ public class HSTubeGain extends CoreMultiBlockPipe {
 		WEST(TubeGainRenderOrientation.WEST, new DoubleCoordinates(0, 0, 0), EnumFacing.WEST);
 
 		@Getter
-		TubeGainRenderOrientation renderOrientation;
+        final TubeGainRenderOrientation renderOrientation;
 		@Getter
-		DoubleCoordinates offset;
+        final DoubleCoordinates offset;
 		@Getter
-		EnumFacing dir;
+        final EnumFacing dir;
 
 		TubeGainOrientation(TubeGainRenderOrientation render, DoubleCoordinates off, EnumFacing dir) {
 			renderOrientation = render;
@@ -378,7 +378,7 @@ public class HSTubeGain extends CoreMultiBlockPipe {
 		EAST(EnumFacing.EAST);
 
 		@Getter
-		private EnumFacing dir;
+		private final EnumFacing dir;
 
 		TubeGainRenderOrientation(EnumFacing dir) {
 			this.dir = dir;

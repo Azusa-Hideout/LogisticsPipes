@@ -25,9 +25,9 @@ public class LogisticsNewSolidBlockWorldRenderer {
 		WEST(EnumFacing.WEST, "W"),
 		EAST(EnumFacing.EAST, "E");
 
-		private EnumFacing dir;
+		private final EnumFacing dir;
 		@Getter
-		private String letter;
+		private final String letter;
 
 		CoverSides(EnumFacing dir, String letter) {
 			this.dir = dir;
@@ -58,7 +58,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 		THREE(3);
 
 		@Getter
-		private int integer;
+		private final int integer;
 
 		BlockRotation(int rot) {
 			integer = rot;

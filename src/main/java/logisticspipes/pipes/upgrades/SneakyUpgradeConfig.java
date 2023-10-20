@@ -41,9 +41,9 @@ public class SneakyUpgradeConfig implements IConfigPipeUpgrade {
 		WEST(EnumFacing.WEST, "LPSNEAKY-WEST");
 
 		@Getter
-		private EnumFacing dir;
+		private final EnumFacing dir;
 		@Getter
-		private String lpName;
+		private final String lpName;
 
 		public static String getNameForDirection(EnumFacing fd) {
 			return Arrays.stream(values())

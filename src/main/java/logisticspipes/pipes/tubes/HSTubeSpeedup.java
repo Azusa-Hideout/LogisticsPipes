@@ -279,7 +279,8 @@ public class HSTubeSpeedup extends CoreMultiBlockPipe {
 		WEST(EnumFacing.WEST);
 		//@formatter:on
 		@Getter
-		EnumFacing dir1;
+        final
+        EnumFacing dir1;
 
 		@Override
 		public void rotatePositions(IPositionRotateble set) {

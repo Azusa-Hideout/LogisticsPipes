@@ -270,8 +270,8 @@ public class LogisticsNewRenderPipe implements IHighlightPlacementRenderer {
 		WEST_NORTH(EnumFacing.WEST, EnumFacing.NORTH),
 		WEST_SOUTH(EnumFacing.WEST, EnumFacing.SOUTH);
 
-		EnumFacing dir;
-		EnumFacing side;
+		final EnumFacing dir;
+		final EnumFacing side;
 
 		PipeMount(EnumFacing dir, EnumFacing side) {
 			this.dir = dir;

@@ -64,10 +64,10 @@ public class LogisticsSolidBlock extends Block {
 
 		// TODO backwards compat, remove with 1.13
 		@Getter
-		int meta;
+        final int meta;
 
 		@Getter
-		boolean hasActiveTexture;
+        final boolean hasActiveTexture;
 
 		@Nullable
 		private final Supplier<TileEntity> teConstructor;

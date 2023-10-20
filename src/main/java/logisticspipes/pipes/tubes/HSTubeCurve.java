@@ -351,13 +351,13 @@ public class HSTubeCurve extends CoreMultiBlockPipe {
 		EAST_NORTH_EAST(TurnDirection.NORTH_EAST, new DoubleCoordinates(0, 0, 0), EnumFacing.EAST, EnumFacing.NORTH);
 		//@formatter:on
 		@Getter
-		TurnDirection renderOrientation;
+        final TurnDirection renderOrientation;
 		@Getter
-		DoubleCoordinates offset;
+        final DoubleCoordinates offset;
 		@Getter
-		EnumFacing from;
+        final EnumFacing from;
 		@Getter
-		EnumFacing looking;
+        final EnumFacing looking;
 
 		@Override
 		public void rotatePositions(IPositionRotateble set) {
@@ -379,8 +379,8 @@ public class HSTubeCurve extends CoreMultiBlockPipe {
 		WEST_NORTH(EnumFacing.WEST, EnumFacing.NORTH);
 		//@formatter:on
 		@Getter
-		EnumFacing dir1;
-		EnumFacing dir2;
+        final EnumFacing dir1;
+		final EnumFacing dir2;
 
 		public void rotatePositions(IPositionRotateble set) {
 			if (this == WEST_NORTH) {

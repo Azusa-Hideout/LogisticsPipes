@@ -176,11 +176,11 @@ public class HSTubeLine extends CoreMultiBlockPipe {
 		WEST(TubeLineRenderOrientation.EAST_WEST, new DoubleCoordinates(0, 0, 0), EnumFacing.WEST);
 
 		@Getter
-		TubeLineRenderOrientation renderOrientation;
+        final TubeLineRenderOrientation renderOrientation;
 		@Getter
-		DoubleCoordinates offset;
+        final DoubleCoordinates offset;
 		@Getter
-		EnumFacing dir;
+        final EnumFacing dir;
 
 		TubeLineOrientation(TubeLineRenderOrientation render, DoubleCoordinates off, EnumFacing dir) {
 			renderOrientation = render;
@@ -204,7 +204,7 @@ public class HSTubeLine extends CoreMultiBlockPipe {
 		EAST_WEST(EnumFacing.EAST);
 
 		@Getter
-		private EnumFacing dir;
+		private final EnumFacing dir;
 
 		TubeLineRenderOrientation(EnumFacing dir) {
 			this.dir = dir;

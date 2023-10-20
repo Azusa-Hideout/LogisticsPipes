@@ -393,13 +393,13 @@ public class HSTubeSCurve extends CoreMultiBlockPipe {
 		//@formatter:on
 
 		@Getter
-		TurnSDirection renderOrientation;
+        final TurnSDirection renderOrientation;
 		@Getter
-		DoubleCoordinates offset;
+        final DoubleCoordinates offset;
 		@Getter
-		EnumFacing dir;
+        final EnumFacing dir;
 		@Getter
-		EnumFacing looking;
+        final EnumFacing looking;
 
 		@Override
 		public void rotatePositions(IPositionRotateble set) {
@@ -422,7 +422,7 @@ public class HSTubeSCurve extends CoreMultiBlockPipe {
 		//@formatter:on
 
 		@Getter
-		private EnumFacing dir1;
+		private final EnumFacing dir1;
 
 		public void rotatePositions(IPositionRotateble set) {
 			if (this == NORTH) {
