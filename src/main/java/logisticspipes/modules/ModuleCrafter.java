@@ -987,7 +987,7 @@ public class ModuleCrafter extends LogisticsModule
 			return;
 		}
 
-		if (adjacentInventories.size() < 1) {
+		if (adjacentInventories.isEmpty()) {
 			if (service.getItemOrderManager().hasOrders(ResourceType.CRAFTING, ResourceType.EXTRA)) {
 				service.getItemOrderManager().sendFailed();
 			}

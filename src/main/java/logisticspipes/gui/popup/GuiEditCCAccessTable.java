@@ -59,7 +59,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 	@Override
 	protected void renderGuiBackground(int mouseX, int mouseY) {
 		GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-		mc.fontRenderer.drawString("(" + (page + 1) + "/" + ((int) ((_tile.excludedCC.size() / 9D) + 1 - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0))) + ")", guiLeft + 100, guiTop + 5, 0x4F4F4F);
+		mc.fontRenderer.drawString("(" + (page + 1) + "/" + ((int) ((_tile.excludedCC.size() / 9D) + 1 - (_tile.excludedCC.size() % 9 == 0 && !_tile.excludedCC.isEmpty() ? 1 : 0))) + ")", guiLeft + 100, guiTop + 5, 0x4F4F4F);
 
 		boolean dark = true;
 		for (int i = 0; i < 9; i++) {
@@ -104,7 +104,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 		if (lastClickedX != -10000000 && lastClickedY != -10000000) {
 			if (lastClickedX >= guiLeft + 42 && lastClickedX < right - 42 && lastClickedY >= bottom - 30 && lastClickedY < bottom - 13) {
 				editSearch = true;
-				if (searchInput1.equals("0") && searchInput2.length() == 0) {
+				if (searchInput1.equals("0") && searchInput2.isEmpty()) {
 					searchInput1 = "";
 				}
 				lastClickedX = -10000000;
@@ -115,7 +115,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 				}
 			} else {
 				editSearch = false;
-				if (searchInput1.length() == 0 && searchInput2.length() == 0) {
+				if (searchInput1.isEmpty() && searchInput2.isEmpty()) {
 					searchInput1 = "0";
 				}
 			}
@@ -204,8 +204,8 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 				break;
 			case 5:
 				page++;
-				if (page > (_tile.excludedCC.size() / 9) - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0)) {
-					page = (_tile.excludedCC.size() / 9) - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0);
+				if (page > (_tile.excludedCC.size() / 9) - (_tile.excludedCC.size() % 9 == 0 && !_tile.excludedCC.isEmpty() ? 1 : 0)) {
+					page = (_tile.excludedCC.size() / 9) - (_tile.excludedCC.size() % 9 == 0 && !_tile.excludedCC.isEmpty() ? 1 : 0);
 				}
 				break;
 			default:
@@ -227,7 +227,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 					setSubGui(new GuiMessagePopup("Clipboard doesn't", "contain a number."));
 				}
 			} else if (c == 8) {
-				if (searchInput1.length() > 0) {
+				if (!searchInput1.isEmpty()) {
 					searchInput1 = searchInput1.substring(0, searchInput1.length() - 1);
 				}
 				return;
@@ -237,12 +237,12 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 				}
 				return;
 			} else if (i == 203) { //Left
-				if (searchInput1.length() > 0) {
+				if (!searchInput1.isEmpty()) {
 					searchInput2 = searchInput1.substring(searchInput1.length() - 1) + searchInput2;
 					searchInput1 = searchInput1.substring(0, searchInput1.length() - 1);
 				}
 			} else if (i == 205) { //Right
-				if (searchInput2.length() > 0) {
+				if (!searchInput2.isEmpty()) {
 					searchInput1 += searchInput2.substring(0, 1);
 					searchInput2 = searchInput2.substring(1);
 				}
@@ -257,7 +257,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 				searchInput1 = searchInput1 + searchInput2;
 				searchInput2 = "";
 			} else if (i == 211) { //Entf
-				if (searchInput2.length() > 0) {
+				if (!searchInput2.isEmpty()) {
 					searchInput2 = searchInput2.substring(1);
 				}
 			}

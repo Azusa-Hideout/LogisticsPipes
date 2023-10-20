@@ -50,10 +50,10 @@ public class HUDInvSysConnector extends BasicHUDGui {
 		if (display > System.currentTimeMillis()) {
 			return true;
 		}
-		if (pipe.displayList.size() > 0) {
+		if (!pipe.displayList.isEmpty()) {
 			display = System.currentTimeMillis() + (2 * 1000);
 		}
-		return pipe.displayList.size() > 0;
+		return !pipe.displayList.isEmpty();
 	}
 
 	@Override

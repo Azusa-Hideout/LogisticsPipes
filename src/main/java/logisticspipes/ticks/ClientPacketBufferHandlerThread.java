@@ -102,7 +102,7 @@ public class ClientPacketBufferHandlerThread {
 		public void run() {
 			while (true) {
 				synchronized (clientList) {
-					if (!pause && clientList.size() > 0) {
+					if (!pause && !clientList.isEmpty()) {
 						clientBuffer = LPDataIOWrapper.collectData(output -> {
 							output.writeBytes(clientBuffer);
 							clearLock.lock();
@@ -135,7 +135,7 @@ public class ClientPacketBufferHandlerThread {
 					MainProxy.sendPacketToServer(PacketHandler.getPacket(BufferTransfer.class).setContent(compressed));
 				}
 				synchronized (clientList) {
-					while (pause || clientList.size() == 0) {
+					while (pause || clientList.isEmpty()) {
 						try {
 							clientList.wait();
 						} catch (InterruptedException ignored) { }
@@ -211,7 +211,7 @@ public class ClientPacketBufferHandlerThread {
 				part = null;
 				packetBufferLock.lock();
 				try {
-					if (PacketBuffer.size() > 0) {
+					if (!PacketBuffer.isEmpty()) {
 						part = PacketBuffer.pop();
 					}
 				} finally {
@@ -229,7 +229,7 @@ public class ClientPacketBufferHandlerThread {
 				partB = null;
 				retryPacketsLock.lock();
 				try {
-					if (retryPackets.size() > 0) {
+					if (!retryPackets.isEmpty()) {
 						partB = retryPackets.pop();
 					}
 				} finally {
@@ -252,7 +252,7 @@ public class ClientPacketBufferHandlerThread {
 					flag = false;
 					byte[] buffer = null;
 					synchronized (queue) {
-						if (queue.size() > 0) {
+						if (!queue.isEmpty()) {
 							flag = true;
 							buffer = queue.getFirst();
 							queue.removeFirst();
@@ -282,7 +282,7 @@ public class ClientPacketBufferHandlerThread {
 					}
 				}
 				synchronized (queue) {
-					while (queue.size() == 0) {
+					while (queue.isEmpty()) {
 						try {
 							queue.wait();
 						} catch (InterruptedException ignored) { }

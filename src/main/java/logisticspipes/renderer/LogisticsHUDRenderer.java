@@ -129,7 +129,7 @@ public class LogisticsHUDRenderer {
 			providers.remove(provider);
 		}
 
-		if (newList.size() < 1) {
+		if (newList.isEmpty()) {
 			clearList(true);
 			return;
 		}
@@ -194,7 +194,7 @@ public class LogisticsHUDRenderer {
 		}
 		Minecraft mc = FMLClientHandler.instance().getClient();
 		EntityPlayer player = mc.player;
-		if (list.size() == 0 || Math.hypot(lastXPos - player.posX, Math.hypot(lastYPos - player.posY, lastZPos - player.posZ)) > 0.5 || (renderTicks % 10 == 0 && (lastXPos != player.posX || lastYPos != player.posY || lastZPos != player.posZ)) || renderTicks % 600 == 0) {
+		if (list.isEmpty() || Math.hypot(lastXPos - player.posX, Math.hypot(lastYPos - player.posY, lastZPos - player.posZ)) > 0.5 || (renderTicks % 10 == 0 && (lastXPos != player.posX || lastYPos != player.posY || lastZPos != player.posZ)) || renderTicks % 600 == 0) {
 			refreshList(player.posX, player.posY, player.posZ);
 			lastXPos = player.posX;
 			lastYPos = player.posY;
@@ -642,7 +642,7 @@ public class LogisticsHUDRenderer {
 
 	public boolean displayRenderer() {
 		if (!displayHUD()) {
-			if (list.size() != 0) {
+			if (!list.isEmpty()) {
 				clearList(true);
 			}
 		}

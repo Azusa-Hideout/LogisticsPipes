@@ -377,7 +377,7 @@ public class ModuleProvider extends LogisticsModule implements SneakyDirection, 
 	}
 
 	private void checkUpdate(EntityPlayer player) {
-		if (localModeWatchers.size() == 0 && player == null) {
+		if (localModeWatchers.isEmpty() && player == null) {
 			return;
 		}
 		displayList.clear();

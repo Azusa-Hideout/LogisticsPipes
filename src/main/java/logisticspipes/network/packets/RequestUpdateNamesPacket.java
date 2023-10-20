@@ -42,7 +42,7 @@ public class RequestUpdateNamesPacket extends ModernPacket {
 				for (CreativeTabs tab : item.getCreativeTabs()) {
 					NonNullList<ItemStack> list = NonNullList.create();
 					item.getSubItems(tab, list);
-					if (list.size() > 0) {
+					if (!list.isEmpty()) {
 						identList.addAll(list.stream().map(ItemIdentifier::get).collect(Collectors.toList()));
 					} else {
 						identList.add(ItemIdentifier.get(item, 0, null));

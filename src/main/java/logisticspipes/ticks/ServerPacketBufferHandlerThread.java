@@ -140,7 +140,7 @@ public class ServerPacketBufferHandlerThread {
 				}
 				serverBuffer.clear();
 				synchronized (serverList) {
-					while (pause || serverList.size() == 0) {
+					while (pause || serverList.isEmpty()) {
 						try {
 							serverList.wait();
 						} catch (InterruptedException ignored) { }
@@ -220,7 +220,7 @@ public class ServerPacketBufferHandlerThread {
 				part = null;
 				packetBufferLock.lock();
 				try {
-					if (PacketBuffer.size() > 0) {
+					if (!PacketBuffer.isEmpty()) {
 						part = PacketBuffer.pop();
 					}
 				} finally {
@@ -244,10 +244,10 @@ public class ServerPacketBufferHandlerThread {
 					byte[] buffer = null;
 					EntityPlayer player = null;
 					synchronized (queue) {
-						if (queue.size() > 0) {
+						if (!queue.isEmpty()) {
 							for (Iterator<Entry<EntityPlayer, LinkedList<byte[]>>> it = queue.entrySet().iterator(); it.hasNext(); ) {
 								Entry<EntityPlayer, LinkedList<byte[]>> lPlayer = it.next();
-								if (lPlayer.getValue().size() > 0) {
+								if (!lPlayer.getValue().isEmpty()) {
 									flag = true;
 									buffer = lPlayer.getValue().getFirst();
 									player = lPlayer.getKey();
@@ -294,7 +294,7 @@ public class ServerPacketBufferHandlerThread {
 				ByteBuffer.values().removeIf(ByteBufferForPlayer -> ByteBufferForPlayer.length == 0);
 
 				synchronized (queue) {
-					while (queue.size() == 0) {
+					while (queue.isEmpty()) {
 						try {
 							queue.wait();
 						} catch (InterruptedException ignored) { }

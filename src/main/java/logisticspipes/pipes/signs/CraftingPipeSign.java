@@ -85,7 +85,7 @@ public class CraftingPipeSign implements IPipeSign {
 			List<ItemIdentifierStack> craftables = cpipe.getCraftedItems();
 
 			String name = "";
-			if (craftables != null && craftables.size() > 0) {
+			if (craftables != null && !craftables.isEmpty()) {
 				ItemIdentifierStack itemstack = craftables.get(0);
 				oldRenderedStack = itemstack;
 
@@ -157,7 +157,7 @@ public class CraftingPipeSign implements IPipeSign {
 		if(cpipe == null) return null;
 		List<ItemIdentifierStack> craftables = cpipe.getCraftedItems();
 		ItemIdentifierStack itemstack = null;
-		if (craftables != null && craftables.size() > 0) {
+		if (craftables != null && !craftables.isEmpty()) {
 			itemstack = craftables.get(0);
 		}
 		return itemstack;

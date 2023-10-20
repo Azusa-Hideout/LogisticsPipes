@@ -149,7 +149,7 @@ public class HUDProvider extends BasicHUDGui {
 
 	@Override
 	public boolean display(IHUDConfig config) {
-		return pipe.getDisplayList().size() > 0 && config.isHUDProvider();
+		return !pipe.getDisplayList().isEmpty() && config.isHUDProvider();
 	}
 
 	@Override

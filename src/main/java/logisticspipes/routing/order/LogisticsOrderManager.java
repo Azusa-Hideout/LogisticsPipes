@@ -72,7 +72,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
 	}
 
 	public LinkedList<ItemIdentifierStack> getContentList(World world) {
-		if (MainProxy.isClient(world) || _orders.size() == 0) {
+		if (MainProxy.isClient(world) || _orders.isEmpty()) {
 			return new LinkedList<>();
 		}
 		LinkedList<ItemIdentifierStack> list = new LinkedList<>();
@@ -90,7 +90,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
 	@SuppressWarnings("unchecked")
 	public T peekAtTopRequest(ResourceType... type) {
 		List<ResourceType> typeList = Arrays.asList(type);
-		if (_orders.size() == 0) {
+		if (_orders.isEmpty()) {
 			return null;
 		}
 		T top = (T) _orders.getFirst().setInProgress(true);

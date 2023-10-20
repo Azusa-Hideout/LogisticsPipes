@@ -127,7 +127,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe implements IChannel
 				});
 			}
 		}
-		if (itemsOnRoute.size() > 0) {
+		if (!itemsOnRoute.isEmpty()) {
 			checkConnectedInvs();
 		}
 	}

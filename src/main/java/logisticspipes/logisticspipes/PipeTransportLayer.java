@@ -53,7 +53,7 @@ public class PipeTransportLayer extends TransportLayer {
 
 			possibleEnumFacing.add(adjacent.getDirection());
 		}
-		if (possibleEnumFacing.size() != 0) {
+		if (!possibleEnumFacing.isEmpty()) {
 			return possibleEnumFacing.get(routedPipe.getWorld().rand.nextInt(possibleEnumFacing.size()));
 		}
 
@@ -66,7 +66,7 @@ public class PipeTransportLayer extends TransportLayer {
 				})
 				.forEach(neighbor -> possibleEnumFacing.add(neighbor.getDirection()));
 
-		if (possibleEnumFacing.size() == 0) {
+		if (possibleEnumFacing.isEmpty()) {
 			// last resort, drop item
 			return null;
 		} else {

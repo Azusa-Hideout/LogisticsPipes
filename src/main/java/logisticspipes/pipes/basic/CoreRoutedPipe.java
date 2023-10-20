@@ -529,7 +529,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 		List<List<ExitRoute>> table = router.getRouteTable();
 		for (int i = 0; i < table.size(); i++) {
 			if (table.get(i) != null) {
-				if (table.get(i).size() > 0) {
+				if (!table.get(i).isEmpty()) {
 					sb.append(i).append(" -> ").append(table.get(i).get(0).destination.getSimpleID()).append('\n');
 					for (ExitRoute route : table.get(i)) {
 						sb.append("\t\t via ").append(route.exitOrientation).append("(").append(route.distanceToDestination).append(" distance)").append('\n');
@@ -980,7 +980,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 	}
 
 	public void updateStats() {
-		if (watchers.size() > 0) {
+		if (!watchers.isEmpty()) {
 			MainProxy.sendToPlayerList(PacketHandler.getPacket(StatUpdate.class).setPipe(this), watchers);
 		}
 	}

@@ -29,7 +29,7 @@ public class HUDCrafting extends BasicHUDGui {
 		} else {
 			GL11.glColor4b((byte) 127, (byte) 127, (byte) 127, (byte) 64);
 		}
-		if (pipe.displayList.size() > 0) {
+		if (!pipe.displayList.isEmpty()) {
 			GuiGraphics.drawGuiBackGround(mc, -50, -28, 50, 30, 0, false);
 		} else {
 			GuiGraphics.drawGuiBackGround(mc, -30, -22, 30, 25, 0, false);
@@ -43,7 +43,7 @@ public class HUDCrafting extends BasicHUDGui {
 		GL11.glTranslatef(0.0F, 0.0F, -0.005F);
 		GL11.glScalef(1.5F, 1.5F, 0.0001F);
 
-		if (pipe.displayList.size() > 0) {
+		if (!pipe.displayList.isEmpty()) {
 			String message = "Result:";
 			mc.fontRenderer.drawString(message, -28, -10, 0);
 			message = "Todo:";
@@ -55,11 +55,11 @@ public class HUDCrafting extends BasicHUDGui {
 		GL11.glScalef(0.8F, 0.8F, -1F);
 		List<ItemIdentifierStack> list = new ArrayList<>();
 		List<ItemIdentifierStack> craftables = pipe.getCraftedItems();
-		if (craftables != null && craftables.size() > 0) {
+		if (craftables != null && !craftables.isEmpty()) {
 			//TODO: handle multiple craftables.
 			list.add(craftables.get(0));
 		}
-		if (pipe.displayList.size() > 0) {
+		if (!pipe.displayList.isEmpty()) {
 			ItemStackRenderer.renderItemIdentifierStackListIntoGui(list, null, 0, 11, -18, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, false, shifted);
 			ItemStackRenderer.renderItemIdentifierStackListIntoGui(pipe.displayList, null, 0, 13, 3, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, false, shifted);
 		} else {
@@ -69,12 +69,12 @@ public class HUDCrafting extends BasicHUDGui {
 
 	@Override
 	public boolean display(IHUDConfig config) {
-		return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getCraftedItems() != null) || pipe.displayList.size() > 0);
+		return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getCraftedItems() != null) || !pipe.displayList.isEmpty());
 	}
 
 	@Override
 	public boolean cursorOnWindow(int x, int y) {
-		if (pipe.displayList.size() > 0) {
+		if (!pipe.displayList.isEmpty()) {
 			return -50 < x && x < 50 && -28 < y && y < 30;
 		} else {
 			return -30 < x && x < 30 && -22 < y && y < 25;

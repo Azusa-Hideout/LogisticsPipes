@@ -46,7 +46,7 @@ public class ItemModuleInformationManager {
 		tag.setTag("moduleInformation", nbt);
 		if (module instanceof IClientInformationProvider) {
 			List<String> information = ((IClientInformationProvider) module).getClientInformation();
-			if (information.size() > 0) {
+			if (!information.isEmpty()) {
 				NBTTagList list = new NBTTagList();
 				for (String info : information) {
 					list.appendTag(new NBTTagString(info));

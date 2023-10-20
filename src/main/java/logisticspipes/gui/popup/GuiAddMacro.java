@@ -444,7 +444,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 		} else if (guibutton.id == 3) {
 			prevPageMacro();
 		} else if (guibutton.id == 4) {
-			if (!(name1 + name2).equals("") && macroItems.size() != 0) {
+			if (!(name1 + name2).equals("") && !macroItems.isEmpty()) {
 				NBTTagList inventar = new NBTTagList();
 				for (ItemIdentifierStack stack : macroItems) {
 					NBTTagCompound itemNBT = new NBTTagCompound();
@@ -478,7 +478,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 				diskProvider.getDisk().getTagCompound().setTag("macroList", list);
 				MainProxy.sendPacketToServer(PacketHandler.getPacket(DiscContent.class).setStack(diskProvider.getDisk()).setPosX(diskProvider.getX()).setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
 				exitGui();
-			} else if (macroItems.size() != 0) {
+			} else if (!macroItems.isEmpty()) {
 				setSubGui(new GuiMessagePopup("Please enter a name"));
 			} else {
 				setSubGui(new GuiMessagePopup("Select some items"));
@@ -497,7 +497,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				name1 = name1 + GuiScreen.getClipboardString();
 			} else if (c == 8) {
-				if (name1.length() > 0) {
+				if (!name1.isEmpty()) {
 					name1 = name1.substring(0, name1.length() - 1);
 				}
 				return;
@@ -507,12 +507,12 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 				}
 				return;
 			} else if (i == 203) { //Left
-				if (name1.length() > 0) {
+				if (!name1.isEmpty()) {
 					name2 = name1.substring(name1.length() - 1) + name2;
 					name1 = name1.substring(0, name1.length() - 1);
 				}
 			} else if (i == 205) { //Right
-				if (name2.length() > 0) {
+				if (!name2.isEmpty()) {
 					name1 += name2.substring(0, 1);
 					name2 = name2.substring(1);
 				}
@@ -527,7 +527,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 				name1 = name1 + name2;
 				name2 = "";
 			} else if (i == 211) { //Entf
-				if (name2.length() > 0) {
+				if (!name2.isEmpty()) {
 					name2 = name2.substring(1);
 				}
 			}
@@ -538,7 +538,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				Search1 = Search1 + GuiScreen.getClipboardString();
 			} else if (c == 8) {
-				if (Search1.length() > 0) {
+				if (!Search1.isEmpty()) {
 					Search1 = Search1.substring(0, Search1.length() - 1);
 				}
 				return;
@@ -548,12 +548,12 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 				}
 				return;
 			} else if (i == 203) { //Left
-				if (Search1.length() > 0) {
+				if (!Search1.isEmpty()) {
 					Search2 = Search1.substring(Search1.length() - 1) + Search2;
 					Search1 = Search1.substring(0, Search1.length() - 1);
 				}
 			} else if (i == 205) { //Right
-				if (Search2.length() > 0) {
+				if (!Search2.isEmpty()) {
 					Search1 += Search2.substring(0, 1);
 					Search2 = Search2.substring(1);
 				}
@@ -568,7 +568,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 				Search1 = Search1 + Search2;
 				Search2 = "";
 			} else if (i == 211) { //Entf
-				if (Search2.length() > 0) {
+				if (!Search2.isEmpty()) {
 					Search2 = Search2.substring(1);
 				}
 			}

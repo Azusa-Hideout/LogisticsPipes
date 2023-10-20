@@ -119,7 +119,7 @@ public abstract class PipeLogisticsChassis extends CoreRoutedPipe
 		_module = new ChassisModule(getChassisSize(), this);
 		_module.registerHandler(this, this);
 		_module.registerPosition(ModulePositionType.IN_PIPE, 0);
-		assert _module.slotUpgradeManagers.size() == 0; // starting at index 0
+		assert _module.slotUpgradeManagers.isEmpty(); // starting at index 0
 		for (int i = 0; i < getChassisSize(); i++) {
 			_module.addModuleUpgradeManager();
 		}
@@ -188,7 +188,7 @@ public abstract class PipeLogisticsChassis extends CoreRoutedPipe
 			return sortedNeighborsStream.findFirst().map(neighbor -> new Pair<>(neighbor, neighbors.get(neighbor))).orElse(null);
 		} else {
 			final List<NeighborTileEntity<TileEntity>> sortedNeighbors = sortedNeighborsStream.collect(Collectors.toList());
-			if (sortedNeighbors.size() == 0) return null;
+			if (sortedNeighbors.isEmpty()) return null;
 			final Optional<NeighborTileEntity<TileEntity>> nextNeighbor = sortedNeighbors.stream()
 					.filter(neighbor -> neighbor.getDirection().ordinal() > previousDirection.ordinal())
 					.findFirst();
@@ -556,7 +556,7 @@ public abstract class PipeLogisticsChassis extends CoreRoutedPipe
 			if (Configs.MULTI_THREAD_NUMBER > 0 && !force) {
 				HudUpdateTick.add(getRouter());
 			} else {
-				if (localModeWatchers.size() > 0) {
+				if (!localModeWatchers.isEmpty()) {
 					LinkedList<ItemIdentifierStack> items = ItemIdentifierStack.getListSendQueue(_sendQueue);
 					MainProxy.sendToPlayerList(PacketHandler.getPacket(SendQueueContent.class).setIdentList(items).setPosX(getX()).setPosY(getY()).setPosZ(getZ()), localModeWatchers);
 					return items.size();

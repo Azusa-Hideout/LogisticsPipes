@@ -32,7 +32,7 @@ public class HUDSatellite extends BasicHUDGui {
 
 			@Override
 			public boolean shouldRenderButton() {
-				return HUDSatellite.this.pipe.getItemList().size() > 0;
+				return !HUDSatellite.this.pipe.getItemList().isEmpty();
 			}
 
 			@Override
@@ -51,7 +51,7 @@ public class HUDSatellite extends BasicHUDGui {
 
 			@Override
 			public boolean shouldRenderButton() {
-				return HUDSatellite.this.pipe.getItemList().size() > 0;
+				return !HUDSatellite.this.pipe.getItemList().isEmpty();
 			}
 
 			@Override
@@ -63,7 +63,7 @@ public class HUDSatellite extends BasicHUDGui {
 
 	@Override
 	public void renderHeadUpDisplay(double distance, boolean day, boolean shifted, Minecraft mc, IHUDConfig config) {
-		if (pipe.getItemList().size() > 0) {
+		if (!pipe.getItemList().isEmpty()) {
 			if (day) {
 				GL11.glColor4b((byte) 64, (byte) 64, (byte) 64, (byte) 64);
 			} else {
@@ -133,7 +133,7 @@ public class HUDSatellite extends BasicHUDGui {
 
 	@Override
 	public boolean cursorOnWindow(int x, int y) {
-		if (pipe.getItemList().size() > 0) {
+		if (!pipe.getItemList().isEmpty()) {
 			return -50 < x && x < 50 && -50 < y && y < 50;
 		} else {
 			return -50 < x && x < 50 && -15 < y && y < 20;

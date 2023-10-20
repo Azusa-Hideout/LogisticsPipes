@@ -243,7 +243,7 @@ public class GuiDiskPopup extends SubGuiScreen {
 			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				name1 = name1 + GuiScreen.getClipboardString();
 			} else if (c == 8) {
-				if (name1.length() > 0) {
+				if (!name1.isEmpty()) {
 					name1 = name1.substring(0, name1.length() - 1);
 				}
 				return;
@@ -253,12 +253,12 @@ public class GuiDiskPopup extends SubGuiScreen {
 				}
 				return;
 			} else if (i == 203) { //Left
-				if (name1.length() > 0) {
+				if (!name1.isEmpty()) {
 					name2 = name1.substring(name1.length() - 1) + name2;
 					name1 = name1.substring(0, name1.length() - 1);
 				}
 			} else if (i == 205) { //Right
-				if (name2.length() > 0) {
+				if (!name2.isEmpty()) {
 					name1 += name2.substring(0, 1);
 					name2 = name2.substring(1);
 				}
@@ -273,7 +273,7 @@ public class GuiDiskPopup extends SubGuiScreen {
 				name1 = name1 + name2;
 				name2 = "";
 			} else if (i == 211) { //Entf
-				if (name2.length() > 0) {
+				if (!name2.isEmpty()) {
 					name2 = name2.substring(1);
 				}
 			}

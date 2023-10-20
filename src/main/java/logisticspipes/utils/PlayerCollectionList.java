@@ -51,7 +51,7 @@ public class PlayerCollectionList {
 	}
 
 	public boolean isEmptyWithoutCheck() {
-		return players.size() == 0;
+		return players.isEmpty();
 	}
 
 	public void add(EntityPlayer player) {
@@ -59,7 +59,7 @@ public class PlayerCollectionList {
 	}
 
 	public boolean remove(EntityPlayer player) {
-		if (contains(player) && players.size() > 0) {
+		if (contains(player) && !players.isEmpty()) {
 			return players.remove(new EqualWeakReference<>(player));
 		} else {
 			return false;
