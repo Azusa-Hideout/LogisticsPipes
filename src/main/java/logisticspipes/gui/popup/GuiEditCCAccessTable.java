@@ -150,7 +150,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 					break;
 				}
 				try {
-					int number = Integer.valueOf(searchInput1 + searchInput2);
+					int number = Integer.parseInt(searchInput1 + searchInput2);
 					number--;
 					if (number < 0) {
 						number = 0;
@@ -169,7 +169,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 					break;
 				}
 				try {
-					int number = Integer.valueOf(searchInput1 + searchInput2);
+					int number = Integer.parseInt(searchInput1 + searchInput2);
 					number++;
 					if (mc.fontRenderer.getStringWidth(Integer.toString(number)) <= GuiEditCCAccessTable.searchWidth) {
 						searchInput1 = Integer.toString(number);
