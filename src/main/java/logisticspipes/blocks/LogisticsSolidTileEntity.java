@@ -24,7 +24,6 @@ import li.cil.oc.api.network.SidedEnvironment;
 
 import logisticspipes.LPBlocks;
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentField;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.RequestRotationPacket;
@@ -55,8 +54,7 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 
 	private boolean doneBackwardsCompatCheck = false;
 
-	@ModDependentField(modId = LPConstants.openComputersModID)
-	public Node node;
+	public Object node; // Node class
 
 	public LogisticsSolidTileEntity() {
 		SimpleServiceLocator.openComputersProxy.initLogisticsSolidTileEntity(this);
@@ -151,7 +149,7 @@ public class LogisticsSolidTileEntity extends TileEntity implements ITickable, I
 	@Override
 	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node node() {
-		return node;
+		return (Node) node;
 	}
 
 	@Override

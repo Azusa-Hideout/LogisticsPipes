@@ -252,28 +252,8 @@ public class LogisticsClassTransformer implements IClassTransformer {
 		ClassReader reader = new ClassReader(bytes);
 		reader.accept(node, 0);
 		boolean changed = false;
-		List<FieldNode> fieldsToRemove = new ArrayList<>();
-		for (FieldNode f : node.fields) {
-			if (f.visibleAnnotations != null) {
-				for (AnnotationNode a : f.visibleAnnotations) {
-					if (a.desc.equals("Llogisticspipes/asm/ModDependentField;")) {
-						if (a.values.size() == 2 && a.values.get(0).equals("modId")) {
-							String modId = a.values.get(1).toString();
-							if (!ModStatusHelper.isModLoaded(modId)) {
-								fieldsToRemove.add(f);
-								break;
-							}
-						} else {
-							throw new UnsupportedOperationException("Can't parse the annotation correctly");
-						}
-					}
-				}
-			}
-		}
-		for (FieldNode f : fieldsToRemove) {
-			node.fields.remove(f);
-		}
-		if (!changed && fieldsToRemove.isEmpty()) {
+        // TODO remove if no use
+		if (!changed) {
 			return bytes;
 		}
 		ClassWriter writer = new ClassWriter(0);

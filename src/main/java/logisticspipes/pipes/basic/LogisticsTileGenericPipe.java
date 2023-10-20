@@ -47,7 +47,6 @@ import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
-import logisticspipes.asm.ModDependentField;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.interfaces.routing.IFilter;
@@ -105,12 +104,9 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 	public Object OPENPERIPHERAL_IGNORE; //Tell OpenPeripheral to ignore this class
 	public Set<DoubleCoordinates> subMultiBlock = new HashSet<>();
 	public boolean[] turtleConnect = new boolean[7];
-	@ModDependentField(modId = LPConstants.computerCraftModID)
-	public HashMap<IComputerAccess, EnumFacing> connections;
-	@ModDependentField(modId = LPConstants.computerCraftModID)
-	public IComputerAccess currentPC;
-	@ModDependentField(modId = LPConstants.openComputersModID)
-	public Node node;
+	public HashMap<Object, EnumFacing> connections; // IComputerAccess class
+	public Object currentPC; // IComputerAccess class
+	public Object node; // Node class
 	public LogicController logicController = new LogicController();
 	public boolean[] pipeConnectionsBuffer = new boolean[6];
 	public boolean[] pipeBCConnectionsBuffer = new boolean[6];
@@ -678,7 +674,7 @@ public class LogisticsTileGenericPipe extends LPDuctHolderTileEntity
 	@Override
 	@Optional.Method(modid = LPConstants.openComputersModID)
 	public Node node() {
-		return node;
+		return (Node) node;
 	}
 
 	@Override

@@ -60,8 +60,8 @@ public class CCProxy implements ICCProxy {
 
 	@Override
 	public void queueEvent(String event, Object[] arguments, LogisticsTileGenericPipe tile) {
-		for (IComputerAccess computer : tile.connections.keySet()) {
-			computer.queueEvent(event, arguments);
+		for (Object computer : tile.connections.keySet()) {
+            ((IComputerAccess) computer).queueEvent(event, arguments);
 		}
 	}
 
@@ -81,12 +81,14 @@ public class CCProxy implements ICCProxy {
 		if (tile.currentPC == null) {
 			return -1;
 		}
-		return tile.currentPC.getID();
+		return ((IComputerAccess) tile.currentPC).getID();
 	}
 
 	@Override
 	public void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, int sourceId) {
-		tile.connections.keySet().stream().filter(computer -> computer.getID() == computerId).forEach(computer -> computer.queueEvent(CCConstants.LP_CC_MESSAGE_EVENT, new Object[] { sourceId, message }));
+		tile.connections.keySet().stream().map(computer -> (IComputerAccess) computer)
+            .filter(computer -> computer.getID() == computerId)
+            .forEach(computer -> computer.queueEvent(CCConstants.LP_CC_MESSAGE_EVENT, new Object[] { sourceId, message }));
 	}
 
 	@Override
