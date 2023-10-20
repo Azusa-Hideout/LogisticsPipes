@@ -45,7 +45,7 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPBlockAccess;
 
 @net.minecraftforge.fml.common.Optional.Interface
-    (iface = LPConstants.mcmpModID, modid = "mcmultipart.api.container.IMultipartContainerBlock")
+    (modid = LPConstants.mcmpModID, iface = "mcmultipart.api.container.IMultipartContainerBlock")
 public abstract class LPMicroblockBlock extends BlockContainer implements IMultipartContainerBlock {
 
 	public static IMCMPBlockAccess mcmpBlockAccess = SimpleServiceLocator.mcmpProxy.createMCMPBlockAccess();

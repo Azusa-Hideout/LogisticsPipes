@@ -27,7 +27,7 @@ import logisticspipes.utils.ReflectionHelper;
 import network.rs485.logisticspipes.proxy.mcmp.subproxy.IMCMPLTGPCompanion;
 
 @net.minecraftforge.fml.common.Optional.Interface
-    (iface = LPConstants.mcmpModID, modid = "mcmultipart.api.container.IMultipartContainer")
+    (modid = LPConstants.mcmpModID, iface = "mcmultipart.api.container.IMultipartContainer")
 public abstract class LPMicroblockTileEntity extends TileEntity implements IMultipartContainer {
 
 	public IMCMPLTGPCompanion imcmpltgpCompanion;
