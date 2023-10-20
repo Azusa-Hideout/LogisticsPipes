@@ -128,13 +128,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
 			}, connectionType);
 			for (CoreRoutedPipe connectedPipe : map.keySet()) {
 				IRouter newRouter = connectedPipe.getRouter();
-				Iterator<ExitRoute> iRoutes = connectedRouters.iterator();
-				while (iRoutes.hasNext()) {
-					ExitRoute route = iRoutes.next();
-					if (route.destination == newRouter) {
-						iRoutes.remove();
-					}
-				}
+                connectedRouters.removeIf(route -> route.destination == newRouter);
 			}
 			Map<CoreRoutedPipe, ArrayList<ExitRoute>> sort = new HashMap<>();
 			for (ExitRoute routeTo : connectedRouters) {

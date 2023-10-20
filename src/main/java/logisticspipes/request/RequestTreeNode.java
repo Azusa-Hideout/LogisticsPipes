@@ -507,14 +507,7 @@ public class RequestTreeNode {
 
 			}// end of else more than 1 crafter at this priority
 			// commit this work set.
-			Iterator<CraftingSorterNode> iter = craftersToBalance.iterator();
-			while (iter.hasNext()) {
-				CraftingSorterNode c = iter.next();
-				if (c.stacksOfWorkRequested > 0 && !c.addWorkPromisesToTree()) { // then it ran out of resources
-					iter.remove();
-				}
-
-			}
+            craftersToBalance.removeIf(c -> c.stacksOfWorkRequested > 0 && !c.addWorkPromisesToTree()); // remove when it ran out of resources
 			itemsNeeded = getMissingAmount();
 
 			if (itemsNeeded <= 0) {
