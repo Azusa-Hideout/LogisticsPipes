@@ -76,8 +76,7 @@ public class GuiExtensionController {
 						break;
 					}
 					extension.setExtending(false);
-					int bottom = yPos + extension.getCurrentHeight();
-					yPos = bottom;
+                    yPos = yPos + extension.getCurrentHeight();
 				}
 				int left;
 				int right;
@@ -127,9 +126,7 @@ public class GuiExtensionController {
 		}
 	}
 
-	public void mouseOver(int i, int j) {
-		int x = i;
-		int y = j;
+	public void mouseOver(int x, int y) {
 		if (currentlyExtended == null) {
 			for (GuiExtension extension : extensions) {
 				if (x > extension.getCurrentXPos() && x < extension.getCurrentXPos() + extension.getCurrentWidth() + (side == GuiSide.RIGHT ? 15 : 0) && y > extension.getCurrentYPos() && y < extension.getCurrentYPos() + extension.getCurrentHeight()) {
