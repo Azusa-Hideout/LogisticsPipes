@@ -53,7 +53,7 @@ public class GuiAddChannelPopup extends SubGuiScreen {
 		}
 		this.textInput.reposition(guiLeft + 10, guiTop + 34, right - guiLeft - 20, 15);
 
-		((GuiCheckBox) buttonList.get(1)).enabled = responsibleSecurityID != null;
+		buttonList.get(1).enabled = responsibleSecurityID != null;
 	}
 
 	@Override
