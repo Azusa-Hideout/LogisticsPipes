@@ -287,12 +287,9 @@ public class LogisticsPipes {
 	@Mod.Instance("logisticspipes")
 	public static LogisticsPipes instance;
 
-	private static boolean certificateError = false;
-
 	public static String getVersionString() {
 		return Stream.of(
 				"Logistics Pipes " + LogisticsPipes.VERSION,
-				LogisticsPipes.certificateError ? "certificate error" : "",
 				LogisticsPipes.DEBUG ? "debug mode" : "",
 				"target " + LogisticsPipes.TARGET,
 				"vendor " + LogisticsPipes.VENDOR)
@@ -449,10 +446,6 @@ public class LogisticsPipes {
 		loadClasses();
 		ProxyManager.load();
 		Configs.load();
-		if (LogisticsPipes.certificateError) {
-			LogisticsPipes.log.fatal("Certificate not correct");
-			LogisticsPipes.log.fatal("This in not a LogisticsPipes version from RS485.");
-		}
 
 		if (LogisticsPipes.UNKNOWN.equals(LogisticsPipes.VERSION)) {
 			LogisticsPipes.log.warn("Could not determine Logistics Pipes version, we do need that " + JarFile.MANIFEST_NAME + ", don't you know?");
@@ -677,17 +670,6 @@ public class LogisticsPipes {
 	@Mod.EventHandler
 	public void serverStarted(FMLServerStartedEvent event) {
 		if (minecraftTestStartMethod != null) minecraftTestStartMethod.accept(event);
-	}
-
-	@Mod.EventHandler
-	public void certificateWarning(FMLFingerprintViolationEvent warning) {
-		LogisticsPipes.certificateError = true;
-		if (!LogisticsPipes.isDEBUG()) {
-			System.out.println("[LogisticsPipes|Certificate] Certificate not correct");
-			System.out.println("[LogisticsPipes|Certificate] Expected: " + warning.getExpectedFingerprint());
-			System.out.println("[LogisticsPipes|Certificate] File: " + warning.getSource().getAbsolutePath());
-			System.out.println("[LogisticsPipes|Certificate] This in not a LogisticsPipes version from RS485.");
-		}
 	}
 
 	public static Object getComputerLP() {
