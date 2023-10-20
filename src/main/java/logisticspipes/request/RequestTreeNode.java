@@ -49,7 +49,7 @@ public class RequestTreeNode {
 	private List<IExtraPromise> extrapromises = new ArrayList<>();
 	private List<IExtraPromise> byproducts = new ArrayList<>();
 	private SortedSet<ICraftingTemplate> usedCrafters = new TreeSet<>();
-	private Set<LogisticsOrderManager<?, ?>> usedExtrasFromManager = new HashSet<LogisticsOrderManager<?, ?>>();
+	private Set<LogisticsOrderManager<?, ?>> usedExtrasFromManager = new HashSet<>();
 	private ICraftingTemplate lastCrafterTried = null;
 	private int promiseAmount = 0;
 
