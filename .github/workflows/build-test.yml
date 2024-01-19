@@ -28,6 +28,12 @@ jobs:
         distribution: 'temurin'
         cache: gradle # Only cache stuff since test build action happen mostly
 
+    - name: Set short git commit SHA
+      id: vars
+      run: |
+        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+
     - name: Read gradle.properties
       uses: BrycensRanch/read-properties-action@v1
       id: properties
@@ -44,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v4.2.0
       with:
         # Artifact name
-        name: ${{ steps.properties.outputs.publish_to_maven }}-$(git rev-parse --short ${{ github.sha }})
+        name: ${{ steps.properties.outputs.publish_to_maven }}-${{ env.COMMIT_SHORT_SHA }}
         # A file, directory or wildcard pattern that describes what to upload
         path: build/libs/*.jar
           
