@@ -26,6 +26,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: gradle # Only cache stuff since test build action happen mostly
 
     - name: Read gradle.properties
       uses: BrycensRanch/read-properties-action@v1
@@ -35,7 +36,7 @@ jobs:
         all: true
     
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      uses: gradle/gradle-build-action@v2
       with:
         arguments: build
 
