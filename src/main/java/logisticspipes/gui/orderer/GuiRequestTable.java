@@ -85,8 +85,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 	private IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<>();
 	private IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<>();
 	private GuiButton hideShowButton;
+    private static final int[] AMOUNT_CHANGE_MODE = { 1, 10, 64, 64 };
 
-	public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
+
+    public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
 		super(410, 240, 0, 0);
 		_table = table;
 		_entityPlayer = entityPlayer;
@@ -142,6 +144,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 		buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
 		buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
 		buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
 
 		buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
 		buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(13, guiLeft + 210, bottom - 28, 46, 10, "Content"))); // Component
@@ -152,8 +155,11 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 		buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(15, guiLeft + 108, guiTop + 53, 15, 10, "++"))); // +10
 		buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(16, guiLeft + 96, guiTop + 64, 26, 10, "+++"))); // +64
 
-		buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 96 + 2, guiTop + 18, 10, 10, "X"))); // x
-		buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 108 + 2, guiTop + 18, 10, 10, "~", 3))); // ~
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 125, guiTop + 21, 10, 10, "X"))); // x
+
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 96, guiTop + 10, 10, 10, "~", 3))); // fill to 1 craft
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(32, guiLeft + 108, guiTop + 10, 15, 10, "~~", 3))); // fill to 10 craft
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(33, guiLeft + 96, guiTop + 21, 26, 10, "~~~", 3))); // fill to 64 craft
 
 		buttonList.add(hideShowButton = new SmallGuiButton(17, guiLeft + 173, guiTop + 5, 36, 10, "Hide")); // Hide
 		buttonList.add(macroButton = new SmallGuiButton(18, right - 55, bottom - 60, 50, 10, "Disk"));
@@ -168,7 +174,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 		search.reposition(guiLeft + 205, bottom - 78, 200, 15);
 
 		if (itemDisplay == null) {
-			itemDisplay = new ItemDisplay(this, fontRenderer, this, this, guiLeft + 205, guiTop + 18, 200, ySize - 100, right - 104, bottom - 24, 36, new int[] { 1, 10, 64, 64 }, true);
+			itemDisplay = new ItemDisplay(this, fontRenderer, this, this, guiLeft + 205, guiTop + 18, 200, ySize - 100, right - 104, bottom - 24, 36, AMOUNT_CHANGE_MODE, true);
 		}
 		itemDisplay.reposition(guiLeft + 205, guiTop + 18, 200, ySize - 100, right - 104, bottom - 24);
 
@@ -520,10 +526,11 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 		} else if (guibutton.id == 30) {
 			MainProxy.sendPacketToServer(PacketHandler.getPacket(ClearCraftingGridPacket.class).setTilePos(_table.container));
 			_table.cacheRecipe();
-		} else if (guibutton.id == 31) {
+        } else if (guibutton.id >= 31 && guibutton.id <= 33) {
+            int mult = AMOUNT_CHANGE_MODE[guibutton.id - 31];
 			ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
 			list.addAll(_table.getModuleRequesterTable().matrix.getItemsAndCount().entrySet().stream()
-					.map(e -> e.getKey().makeStack(e.getValue())).collect(Collectors.toList()));
+					.map(e -> e.getKey().makeStack(e.getValue() * mult)).collect(Collectors.toList()));
 			for (ItemStack itemStack : _table.getModuleRequesterTable().inv) {
 				if (itemStack.isEmpty()) continue;
 				int size = itemStack.getCount();
@@ -540,6 +547,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 				MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitListPacket.class).setIdentList(list).setTilePos(_table.container));
 				refreshItems();
 			}
+        } else if (guibutton.id == 34) {
+            itemDisplay.resetAmount();
 		}
 	}
 
