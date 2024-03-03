@@ -87,7 +87,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen implements IItemSear
 	private GuiButton hideShowButton;
     private static final int[] AMOUNT_CHANGE_MODE = { 1, 10, 64, 64 };
 
-
     public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
 		super(410, 240, 0, 0);
 		_table = table;
