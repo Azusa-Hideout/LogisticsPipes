@@ -368,7 +368,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics implements 
 	}
 
 	@Nonnull
-	public ItemStack getOutput(boolean oreDict) {
+	public ItemStack getOutput(EntityPlayer player, boolean oreDict) {
 		if (cache == null) {
 			cacheRecipe();
 			if (cache == null) {
@@ -443,9 +443,10 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics implements 
 		if (fake == null) {
 			fake = MainProxy.getFakePlayer(getWorld());
 		}
+        EntityPlayer playerToUse = player == null ? fake : player;
 		result = result.copy();
 
-		SlotCrafting craftingSlot = new SlotCrafting(fake, crafter, resultInv, 0, 0, 0) {
+		SlotCrafting craftingSlot = new SlotCrafting(playerToUse, crafter, resultInv, 0, 0, 0) {
 
 			@Override
 			protected void onCrafting(@Nonnull ItemStack stack) {
@@ -456,7 +457,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics implements 
 				this.inventory = tmp;
 			}
 		};
-		result = craftingSlot.onTake(fake, result);
+		result = craftingSlot.onTake(playerToUse, result);
 		for (int i = 0; i < 9; i++) {
 			ItemStack left = crafter.getStackInSlot(i);
 			crafter.setInventorySlotContents(i, ItemStack.EMPTY);
@@ -467,25 +468,27 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics implements 
 				}
 			}
 		}
-		for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
-			ItemStack left = fake.inventory.getStackInSlot(i);
-			fake.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
-			if (!left.isEmpty()) {
-				left.setCount(moduleRequesterTable.inv.addCompressed(left, false));
-				if (left.getCount() > 0) {
-					ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
-				}
-			}
-		}
+        if (playerToUse == fake) {
+            for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
+                ItemStack left = fake.inventory.getStackInSlot(i);
+                fake.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+                if (!left.isEmpty()) {
+                    left.setCount(moduleRequesterTable.inv.addCompressed(left, false));
+                    if (left.getCount() > 0) {
+                        ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
+                    }
+                }
+            }
+        }
 		return result;
 	}
 
 	@Nonnull
-	public ItemStack getResultForClick() {
+	public ItemStack getResultForClick(EntityPlayer player) {
 		if (MainProxy.isServer(getWorld())) {
-			ItemStack result = getOutput(true);
+			ItemStack result = getOutput(player, true);
 			if (result.isEmpty()) {
-				result = getOutput(false);
+				result = getOutput(player, false);
 			}
 			if (result.isEmpty()) {
 				return ItemStack.EMPTY;

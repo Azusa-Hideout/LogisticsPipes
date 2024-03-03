@@ -235,7 +235,7 @@ public class GuiHandler implements IGuiHandler {
 							dummy.addDummySlot(i++, 0, 0);
 						}
 					}
-					dummy.addCallableSlotHandler(0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable) fpipe.pipe).getResultForClick());
+					dummy.addCallableSlotHandler(0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable) fpipe.pipe).getResultForClick(player));
 					dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).getModuleRequesterTable().toSortInv, 0, 0);
 					dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).getModuleRequesterTable().diskInv, 0, 0);
 					dummy.addNormalSlotsForPlayerInventory(0, 0);
