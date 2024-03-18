@@ -46,6 +46,11 @@ jobs:
       with:
         file: gradle.properties
         all: true
+
+    - name: Setup Gradle project
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: setupDecompWorkspace --info
     
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v2
