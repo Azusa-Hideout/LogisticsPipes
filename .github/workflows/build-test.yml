@@ -32,7 +32,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle # Only cache stuff since test build action happen mostly
 
     - name: Set short git commit SHA
       id: vars
