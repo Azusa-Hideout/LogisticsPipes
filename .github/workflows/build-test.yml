@@ -46,16 +46,9 @@ jobs:
       with:
         file: gradle.properties
         all: true
-
-    - name: Setup Gradle project
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: setupDecompWorkspace --info
     
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: build --info
+      run: gradle build --info
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.2.0
